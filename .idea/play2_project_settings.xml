@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Play2ExcludedModulesSettings">
+    <option name="INFO">
+      <map>
+        <entry key="ebusiness-master">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.6.5.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="play-silhouette-seed">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.6.5.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="root">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="sourceDir" value="D:\kamil\Studia 4 rok\2 semestr\Projektowanie aplikacji internetowych\E-Commerce — kopia\app" />
+              <option name="confDir" value="D:\kamil\Studia 4 rok\2 semestr\Projektowanie aplikacji internetowych\E-Commerce — kopia\app" />
+              <option name="routesImports">
+                <list>
+                  <option value="controllers.Assets.Asset" />
+                  <option value="utils.route.Binders._" />
+                </list>
+              </option>
+              <option name="uri" value="/D:/kamil/Studia%204%20rok/2%20semestr/Projektowanie%20aplikacji%20internetowych/E-Commerce%20—%20kopia" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,63 @@
+.navbar {
+    min-height: 80px;
+  }
+
+.rows {
+    display: flex
+}
+.a{
+    color: #ffffff;
+}
+
+.welcome{
+    color: white;
+}
+
+.loginUsing{
+    color: white;
+}
+
+a.shop{
+    color: white;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.loginUsing{
+    color: white;
+    font-size: 17px;
+}
+
+#addButton{
+    cursor: pointer;
+}
+
+#shopAll{
+    padding-top: 20px;
+}
+
+#categoriesView{
+    color: white;
+    padding-top: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#basic-nav-dropdown{
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 25px;
+}
+
+#basketMain{
+    color: white;
+    font-size: 17px;
+    padding-top: 13px;
+}
+
+#basketLogo{
+    cursor: pointer;
+}
