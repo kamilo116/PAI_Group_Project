@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 const BASE_URL = 'http://localhost:9000';
 
 export {
