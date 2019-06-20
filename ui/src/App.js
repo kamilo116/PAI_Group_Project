@@ -4,6 +4,7 @@ import {browserHistory, Router} from "react-router";
 import AddProduct from "./components/admin/AddProduct";
 import OrderDetails from "./components/OrderDetails";
 import Order from "./components/Order";
+import Product from "./components/Product";
 import AddCategory from "./components/admin/AddCategory";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
@@ -17,7 +18,6 @@ import DeleteProduct from "./components/admin/DeleteProduct";
 import DeleteCategory from "./components/admin/DeleteCategory";
 import DeleteOrder from "./components/admin/DeleteOrder";
 import DeleteUser from "./components/admin/DeleteUser";
-import EditUsers from "./components/admin/EditUsers";
 
 class App extends Component {
 
@@ -40,13 +40,15 @@ class App extends Component {
                             <Route path="/addCategory" component={AddCategory}/>
                             <Route path="/editProducts" component={EditProducts}/>
                             <Route path="/editCategories" component={EditCategories}/>
-                            <Route path="/editUsers" component={EditUsers}/>
+                            {/*<Route path="/editUsers" component={EditUser}/>*/}
                             <Route path="/editOrders" component={EditOrders}/>
 
                             <Route path="/DeleteProduct" component={DeleteProduct}/>
                             <Route path="/DeleteCategory" component={DeleteCategory}/>
                             <Route path="/DeleteOrder" component={DeleteOrder}/>
                             <Route path="/DeleteUser" component={DeleteUser}/>
+
+                            <Route path="/product/:productId" component={Product}/>
                         {/*</Router>*/}
                     </Switch>
                 </div>

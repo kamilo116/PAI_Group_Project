@@ -13,17 +13,28 @@ export {
     getOrderByUserId,
     getOrderDetailsByOrderId,
     getUsers,
-    getOrders
+    getOrders,
+    getReviews
 };
 
 function getProduct(product_id) {
     const url = `${BASE_URL}/api/getProduct/` + product_id;
     return axios
         .get(url)
-        // .then(response => {
-        //     console.log(response)
-        //     response.data
-        // });
+        .then(response => {
+            console.log(response)
+            return response.data
+        } )
+}
+
+function getReviews(product_id) {
+    const url = `${BASE_URL}/api/getReviews/byProductId/` + product_id;
+    return axios
+        .get(url)
+        .then(response => {
+            console.log(response)
+            return response.data
+        } )
 }
 
 function getUsers() {

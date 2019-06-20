@@ -16,7 +16,6 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
     mapping(
       "order_id" -> number,
       "product_id" -> number,
-      "order_product_id" -> number,
       "mark" -> number,
       "review_content" -> nonEmptyText
     )(CreateReviewForm.apply)(CreateReviewForm.unapply)
@@ -42,6 +41,12 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
     }
   }
 
+  def getReviewByProductId(id: Int) = Action.async { implicit request =>
+    reviewRepo.findByProductId(id).map { order =>
+      Ok(Json.toJson(order))
+    }
+  }
+
   def create() = Action.async(parse.json) { implicit request =>
     reviewForm.bindFromRequest.fold(
       errorForm => {
@@ -52,7 +57,6 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
         reviewRepo.create(
           review.order_id,
           review.product_id,
-          review.order_product_id,
           review.mark,
           review.review_content
         ).map { _ =>
@@ -78,7 +82,6 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
               id,
               review.order_id,
               review.product_id,
-              review.order_product_id,
               review.mark,
               review.review_content
             )).map({ _ =>
@@ -89,4 +92,4 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
     }
 
 }
-case class CreateReviewForm(order_id: Int, product_id: Int, order_product_id: Int, mark: Int, review_content: String)
+case class CreateReviewForm(order_id: Int, product_id: Int, mark: Int, review_content: String)

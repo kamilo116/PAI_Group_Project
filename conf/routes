@@ -3,53 +3,55 @@
 # ~~~~
 
 # Home page
-GET            /                                                  controllers.ApplicationController.index
-GET            /signOut                                           controllers.SocialAuthController.signOut
-GET            /authenticate/:provider                            controllers.SocialAuthController.authenticate(provider)
+GET           /                                                  controllers.ApplicationController.index
+GET           /signOut                                           controllers.SocialAuthController.signOut
+GET           /authenticate/:provider                            controllers.SocialAuthController.authenticate(provider)
 
-GET            /auth/getUser                                      controllers.SocialAuthController.getLoggedInEmail
-GET            /auth/getUsers                                     controllers.UsersController.getUsers
-PUT            /auth/updateUser/:id                               controllers.UsersController.updateUser(id:Long)
-DELETE         /auth/deleteUser/:id                               controllers.UsersController.deleteUser(id:Long)
+GET           /auth/getUser                                      controllers.SocialAuthController.getLoggedInEmail
+GET           /auth/getUsers                                     controllers.UsersController.getUsers
+PUT           /auth/updateUser/:id                               controllers.UsersController.updateUser(id:Long)
+DELETE        /auth/deleteUser/:id                               controllers.UsersController.deleteUser(id:Long)
 
-GET            /api/getProducts                                   controllers.ProductController.getProducts
-GET            /api/getProduct/:id                                controllers.ProductController.getProduct(id: Long)
-POST           /api/addProduct                                    controllers.ProductController.addProduct
-PUT            /api/updateProduct/:id                             controllers.ProductController.updateProduct(id: Long)
-DELETE         /api/deleteProduct/:id                             controllers.ProductController.deleteProduct(id: Long)
+GET           /api/getProducts                                   controllers.ProductController.getProducts
+GET           /api/getProduct/:id                                controllers.ProductController.getProduct(id: Long)
+POST          /api/addProduct                                    controllers.ProductController.addProduct
+PUT           /api/updateProduct/:id                             controllers.ProductController.updateProduct(id: Long)
+DELETE        /api/deleteProduct/:id                             controllers.ProductController.deleteProduct(id: Long)
 
 
-GET            /api/getCategories                                 controllers.CategoryController.getCategories
-POST           /api/addCategory                                   controllers.CategoryController.addCategory
-PUT            /api/updateCategory/:id                            controllers.CategoryController.updateCategory(id: Int)
-DELETE         /api/deleteCategory/:id                            controllers.CategoryController.deleteCategory(id: Int)
+GET           /api/getCategories                                 controllers.CategoryController.getCategories
+POST          /api/addCategory                                   controllers.CategoryController.addCategory
+PUT           /api/updateCategory/:id                            controllers.CategoryController.updateCategory(id: Int)
+DELETE        /api/deleteCategory/:id                            controllers.CategoryController.deleteCategory(id: Int)
 
-GET            /api/orders                                        controllers.OrdersController.get
-GET            /api/ordersByUserId/:id                            controllers.OrdersController.getByUserId(id: Long)
-POST           /api/addOrder                                      controllers.OrdersController.add
+GET           /api/orders                                        controllers.OrdersController.get
+GET           /api/ordersByUserId/:id                            controllers.OrdersController.getByUserId(id: Long)
+POST          /api/addOrder                                      controllers.OrdersController.add
 
-POST           /api/addOrderDetail                                controllers.OrdersDetailController.add
-GET            /api/orderDetailsByOrderId/:id                     controllers.OrdersDetailController.getByOrderId(id: Long)
-DELETE         /api/deleteOrderDetail/:id                         controllers.OrdersDetailController.deleteOrderDetail(id: Long)
-DELETE         /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
+POST          /api/addOrderDetail                                controllers.OrdersDetailController.add
+GET           /api/orderDetailsByOrderId/:id                     controllers.OrdersDetailController.getByOrderId(id: Long)
+DELETE        /api/deleteOrderDetail/:id                         controllers.OrdersDetailController.deleteOrderDetail(id: Long)
+DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
 
+GET           /api/getReviews/byProductId/:id                                controllers.ReviewController.getReviewByProductId(id: Int)
+POST          /api/Review                                        controllers.ReviewController.create
 
 #Not used
-GET            /signUp                                            controllers.SignUpController.view
-POST           /signUp                                            controllers.SignUpController.submit
+GET           /signUp                                            controllers.SignUpController.view
+POST          /signUp                                            controllers.SignUpController.submit
 
-GET            /signIn                                            controllers.SignInController.view
-POST           /signIn                                            controllers.SignInController.submit
+GET           /signIn                                            controllers.SignInController.view
+POST          /signIn                                            controllers.SignInController.submit
 
-GET            /password/forgot                                   controllers.ForgotPasswordController.view
-POST           /password/forgot                                   controllers.ForgotPasswordController.submit
-GET            /password/reset/:token                             controllers.ResetPasswordController.view(token: java.util.UUID)
-POST           /password/reset/:token                             controllers.ResetPasswordController.submit(token: java.util.UUID)
-GET            /password/change                                   controllers.ChangePasswordController.view
-POST           /password/change                                   controllers.ChangePasswordController.submit
+GET           /password/forgot                                   controllers.ForgotPasswordController.view
+POST          /password/forgot                                   controllers.ForgotPasswordController.submit
+GET           /password/reset/:token                             controllers.ResetPasswordController.view(token: java.util.UUID)
+POST          /password/reset/:token                             controllers.ResetPasswordController.submit(token: java.util.UUID)
+GET           /password/change                                   controllers.ChangePasswordController.view
+POST          /password/change                                   controllers.ChangePasswordController.submit
 
-GET            /account/email/:email                              controllers.ActivateAccountController.send(email: String)
-GET            /account/activate/:token                           controllers.ActivateAccountController.activate(token: java.util.UUID)
+GET           /account/email/:email                              controllers.ActivateAccountController.send(email: String)
+GET           /account/activate/:token                           controllers.ActivateAccountController.activate(token: java.util.UUID)
 # Map static resources from the /public folder to the /assets URL path
-GET            /assets/*file                                      controllers.Assets.versioned(file)
-->             /webjars                                           webjars.Routes
+GET           /assets/*file                                      controllers.Assets.versioned(file)
+->            /webjars                                           webjars.Routes

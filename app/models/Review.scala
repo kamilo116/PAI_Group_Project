@@ -6,7 +6,6 @@ case class Review(
   review_id: Int,
   order_id: Int,
   product_id: Int,
-  order_product_id: Int,
   mark: Int,
   review_content: String
 )

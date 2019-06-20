@@ -7,6 +7,7 @@ import item1 from '../images/honey.jpg'
 import {addToBasket} from "../utils/post-api";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import {Alert} from "react-bootstrap";
+import {Link} from "react-router-dom";
 function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
@@ -138,6 +139,7 @@ class Home extends Component{
                 })
             } else if(!this.props.isLogin){
                 itemList = products.map(item => {
+                    let product_link = "/product/" + item.id
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
@@ -149,7 +151,7 @@ class Home extends Component{
                             </div>
 
                             <div className="card-content">
-                                <span className="card-title">{item.name}</span>
+                                <span className="card-title"><li><Link to={product_link} >{item.name} </Link></li></span>
                                 <p>{item.description}</p>
                                 <i>({this.getRelatedCategoryName(categories, item)})</i>
                                 <p><b>Price: {item.price}$</b></p>
