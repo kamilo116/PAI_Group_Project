@@ -9,7 +9,7 @@ import {setIsAdmin, setIsLogin} from "./actions/cartActions";
 const facebookLogoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png";
 const googleLogoUrl = "https://www.ispro.pl/wp-content/uploads/2014/01/google+logo.png";
 const basketLogoUrl = "https://pl.seaicons.com/wp-content/uploads/2017/02/shopping-basket-icon.png";
-export const ADMIN_EMAIL = 'kaka228@o2.pl';
+export const ADMIN_EMAIL = 'test@test.pl';
 class LoginMaterialize extends Component {
 
     constructor(props){
