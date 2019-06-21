@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import {getUser, signOut} from "../utils/get-api";
+import {login, getUser, signOut} from "../utils/get-api";
 import {setIsAdmin, setIsLogin} from "./actions/cartActions";
 import {connect} from "react-redux";
-import {LoginMaterialize} from "./LoginMaterialize";
 
 
-class LoginHome extends Component{
+class LoginHome extends Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            result : [],
-            user : []
+            result: [],
+            user: [],
+            email: '',
+            password: '',
+            loggedIn: false
         }
 
         this.signOut = this
@@ -21,14 +23,29 @@ class LoginHome extends Component{
         this.getUser = this
             .getUser
             .bind(this)
+        this.login = this
+            .login
+            .bind(this)
+        this.handleEmailName = this
+            .handleEmailName
+            .bind(this);
+        this.handlePassword = this
+            .handlePassword
+            .bind(this);
     }
 
     componentDidMount() {
-        this.getUser()
+        this.login()
     }
 
-    getUser(){
+    getUser() {
         getUser().then((user) => {
+            this.setState({user: user});
+        });
+    }
+
+    login(email, password) {
+        login(email, password).then((user) => {
             this.setState({user: user});
         });
     }
@@ -40,42 +57,55 @@ class LoginHome extends Component{
         });
     }
 
-    handleLogin() {
-        var url = 'http://localhost:9000/login';
-
-        fetch(url, {
-            mode: 'cors',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'http://localhost:3000',
-            },
-            method: 'GET',
-        })
-            .then(results => {
-                return results.json();
-            })
+    handleEmailName = (e) => {
+        this.setState({email: e.target.value});
     }
 
-    // handleClick = (id)=>{
-    //     this.props.addToCart(id);
-    // }
+    handlePassword = (e) => {
+        this.setState({password: e.target.value});
+    }
+
+    handleLogin = (event) => {
+        event.preventDefault();
+        this.login(this.state.email, this.state.password)
+        getUser().then((user) => {
+            this.setState({user: user});
+        });
+    }
 
     render() {
-        return (
-            <form onSubmit={this.handleLogin}>
-                <div className="center">
+        if (this.state.email === '') {
+            return (
+                <form onSubmit={this.handleLogin}>
+                    <div>
+                        <br/>
+                        <label htmlFor="email">Email</label>
+                        <input id="email"
+                               required={true}
+                               name="email" type="text"
+                               placeholder="Enter email"
+                               onChange={this.handleEmailName}/>
 
-                    <label htmlFor="email">User email</label>
-                    <input id="email" name="email" type="email" />
+                        <label htmlFor="password">Password</label>
+                        <input id="password"
+                               required={true}
+                               name="Product password" type="text"
+                               placeholder="Enter password"
+                               onChange={this.handlePassword}/>
 
-                    <label htmlFor="password">Password</label>
-                    <input id="password" name="password" type="text" />
-
-                    <button>Login</button>
+                        <button>Login</button>
+                    </div>
+                </form>
+            );
+        } else {
+            return (
+                <div>
+                    <h1>
+                        You are already logged in
+                    </h1>
                 </div>
-            </form>
-        );
+            );
+        }
     }
 }
 

@@ -55,7 +55,14 @@ function getBasket() {
 }
 
 function getUser() {
-    const url = `${BASE_URL}/auth/getUser`;
+    const url = `${BASE_URL}/getUser`;
+    return axios
+        .get(url)
+        .then(response => response.data);
+}
+
+export function login(email, password) { //todo password
+    const url = `${BASE_URL}/getUser` + email;
     return axios
         .get(url)
         .then(response => response.data);

@@ -4,9 +4,10 @@
 
 # Home page
 GET            /                                                  controllers.ApplicationController.index
-GET            /signOut                                           controllers.SocialAuthController.signOut
+GET            /signOut                                           controllers.UsersController.signOut
 GET            /authenticate/:provider                            controllers.SocialAuthController.authenticate(provider)
 
+GET            /getUser                                           controllers.UsersController.getUser
 GET            /auth/getUser                                      controllers.SocialAuthController.getLoggedInEmail
 GET            /auth/getUsers                                     controllers.UsersController.getUsers
 PUT            /auth/updateUser/:id                               controllers.UsersController.updateUser(id:Long)

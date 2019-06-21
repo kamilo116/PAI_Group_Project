@@ -2,7 +2,7 @@ package controllers
 
 import com.mohiva.play.silhouette.api.Silhouette
 import javax.inject._
-import models.UserRepository
+import models.{ UserDb, UserRepository }
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints.{ max, min }
@@ -20,6 +20,7 @@ class UsersController @Inject() (
 )(implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   val logger: Logger = Logger(this.getClass())
+  var loggedUserEmail: String = "user@test.pl"
 
   /**
    * The mapping for the person form.
@@ -63,10 +64,24 @@ class UsersController @Inject() (
     )
   }
 
+  def getUser = Action.async { implicit request =>
+    userRepository.getByEmail(loggedUserEmail).map { user: Seq[UserDb] =>
+      Ok(Json.toJson(user)).withHeaders(
+        "Access-Control-Allow-Origin" -> "*")
+    }
+  }
+
   def login(email: String) = Action.async { implicit request =>
+
     userRepository.getByEmail(email).map { user =>
       Ok(Json.toJson(user))
     }
+  }
+
+  def signOut = Action { implicit request =>
+    //    val result = Redirect(routes.ApplicationController.index())
+    loggedUserEmail = ""
+    Ok(views.html.home())
   }
 
   def updateUser(id: Long) = Action.async { implicit request =>
