@@ -76,7 +76,7 @@ class OptionController @Inject() (optionRepo: OptionRepository, cc: MessagesCont
             Future.successful(BadRequest("failed to update option."))
           },
           option => {
-            optionRepo.update(models.Option(
+            optionRepo.update(models.OptionMo(
               id,
               option.option_group_id,
               option.option_value
