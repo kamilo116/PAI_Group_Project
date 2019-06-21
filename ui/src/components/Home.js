@@ -151,7 +151,7 @@ class Home extends Component{
                             </div>
 
                             <div className="card-content">
-                                <span className="card-title"><li><Link to={product_link} >{item.name} </Link></li></span>
+                                <span className="card-title"><Link to={product_link} >{item.name} </Link></span>
                                 <p>{item.description}</p>
                                 <i>({this.getRelatedCategoryName(categories, item)})</i>
                                 <p><b>Price: {item.price}$</b></p>
