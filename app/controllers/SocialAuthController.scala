@@ -64,7 +64,7 @@ class SocialAuthController @Inject() (
             silhouette.env.eventBus.publish(LoginEvent(user, request))
             userRepo.isEmailExist(user.email.getOrElse("No email")).map(isExist =>
               if (!isExist) {
-                userRepo.create(user.firstName.getOrElse("No name"), user.lastName.getOrElse("No last name"), user.email.getOrElse("No email"))
+                userRepo.create(user.firstName.getOrElse("No name"), user.lastName.getOrElse("No last name"), user.email.getOrElse("No email"), "1", "x", "x", "x", "x", "")
               }
             )
             loggedUserEmail = user.email.getOrElse("No email")
