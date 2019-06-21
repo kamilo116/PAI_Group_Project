@@ -38,7 +38,8 @@ class SocialAuthController @Inject() (
   ex: ExecutionContext
 ) extends AbstractController(components) with I18nSupport with Logger {
 
-  var loggedUserEmail: String = ""
+  var loggedUserEmail: String = "user@test.pl"
+  //  var loggedUserEmail: String = ""
 
   /**
    * Authenticates a user against a social provider.
@@ -91,11 +92,10 @@ class SocialAuthController @Inject() (
    *
    * @return The result to display.
    */
-  def signOut = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
-    val result = Redirect(routes.ApplicationController.index())
+  def signOut = Action { implicit request =>
+    //    val result = Redirect(routes.ApplicationController.index())
     loggedUserEmail = ""
-    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
-    silhouette.env.authenticatorService.discard(request.authenticator, result)
+    Ok(views.html.home())
   }
 
 }

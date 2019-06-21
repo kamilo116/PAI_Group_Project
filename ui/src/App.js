@@ -18,6 +18,7 @@ import DeleteCategory from "./components/admin/DeleteCategory";
 import DeleteOrder from "./components/admin/DeleteOrder";
 import DeleteUser from "./components/admin/DeleteUser";
 import EditUsers from "./components/admin/EditUsers";
+import LoginHome from "./components/LoginHome";
 
 class App extends Component {
 
@@ -47,6 +48,7 @@ class App extends Component {
                             <Route path="/DeleteCategory" component={DeleteCategory}/>
                             <Route path="/DeleteOrder" component={DeleteOrder}/>
                             <Route path="/DeleteUser" component={DeleteUser}/>
+                            <Route path="/login" component={LoginHome}/>
                         {/*</Router>*/}
                     </Switch>
                 </div>
