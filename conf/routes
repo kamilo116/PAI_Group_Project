@@ -4,13 +4,14 @@
 
 # Home page
 GET           /                                                  controllers.ApplicationController.index
-GET           /signOut                                           controllers.SocialAuthController.signOut
+GET           /signOut                                           controllers.UsersController.signOut
 GET           /authenticate/:provider                            controllers.SocialAuthController.authenticate(provider)
 
 GET           /auth/getUser                                      controllers.SocialAuthController.getLoggedInEmail
 GET           /auth/getUsers                                     controllers.UsersController.getUsers
 PUT           /auth/updateUser/:id                               controllers.UsersController.updateUser(id:Long)
 DELETE        /auth/deleteUser/:id                               controllers.UsersController.deleteUser(id:Long)
+GET            /getUser                                           controllers.UsersController.getUser
 
 GET           /api/getProducts                                   controllers.ProductController.getProducts
 GET           /api/getProduct/:id                                controllers.ProductController.getProduct(id: Long)
@@ -35,6 +36,8 @@ DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.Ord
 
 GET           /api/getReviews/byProductId/:id                                controllers.ReviewController.getReviewByProductId(id: Int)
 POST          /api/Review                                        controllers.ReviewController.create
+POST           /registration                                 controllers.UsersController.registration
+POST           /login                                        controllers.UsersController.login
 
 #Not used
 GET           /signUp                                            controllers.SignUpController.view

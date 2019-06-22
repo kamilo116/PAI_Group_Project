@@ -61,7 +61,7 @@ class Order extends Component{
     }
 
     postData = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         // if(this.state.personal_collection){
         //     addOrder(1, defaultAddress)

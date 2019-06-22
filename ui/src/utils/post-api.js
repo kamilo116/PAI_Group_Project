@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:9000';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 
 export {addProduct, addCategory, addToBasket, addOrder, addOrderDetail};
@@ -19,6 +19,7 @@ function addProduct(product_name, product_description, product_category, product
 function addOrder(user_id, order_address) {
   const url = `${BASE_URL}/api/addOrder`;
   return axios.post(url, {
+    // user_id:1,
     user_id: parseInt(user_id),
     order_address: order_address,
   }).then(response => response.data);
@@ -45,4 +46,11 @@ function addToBasket(product_id) {
   return axios
     .post(url, {product_id: product_id})
     .then(response => response.data);
+}
+
+export function login(email, password) { //todo password
+  const url = `${BASE_URL}/login`;
+  return axios
+      .post(url, {email: email, password: password})
+      .then(response => response.data);
 }
