@@ -36,11 +36,11 @@ class LoginHome extends Component {
             .bind(this);
     }
 
-    componentDidMount() {
-        this.getUser()
+    // componentDidMount() {
+        // this.getUser()
 
         // this.login()
-    }
+    // }
 
     getUser() {
         getUser().then((user) => {
