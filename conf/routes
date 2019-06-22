@@ -35,7 +35,7 @@ DELETE         /api/deleteOrderDetail/:id                         controllers.Or
 DELETE         /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
 
 POST           /registration                                 controllers.UsersController.registration
-GET            /login/:email                                 controllers.UsersController.login(email: String)
+POST           /login                                        controllers.UsersController.login
 
 #Not used
 GET            /signUp                                            controllers.SignUpController.view

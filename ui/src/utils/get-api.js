@@ -61,12 +61,7 @@ function getUser() {
         .then(response => response.data);
 }
 
-export function login(email, password) { //todo password
-    const url = `${BASE_URL}/getUser` + email;
-    return axios
-        .get(url)
-        .then(response => response.data);
-}
+
 
 function getOrders() {
     const url = `${BASE_URL}/api/orders`;

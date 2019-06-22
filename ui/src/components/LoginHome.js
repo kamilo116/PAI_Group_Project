@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {login, getUser, signOut} from "../utils/get-api";
+import {getUser, signOut} from "../utils/get-api";
+import {login} from "../utils/post-api";
 import {setIsAdmin, setIsLogin} from "./actions/cartActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import {ADMIN_EMAIL} from "./LoginMaterialize";
 
 
 class LoginHome extends Component {
@@ -13,8 +16,7 @@ class LoginHome extends Component {
             result: [],
             user: [],
             email: '',
-            password: '',
-            loggedIn: false
+            password: ''
         }
 
         this.signOut = this
@@ -35,7 +37,9 @@ class LoginHome extends Component {
     }
 
     componentDidMount() {
-        this.login()
+        this.getUser()
+
+        // this.login()
     }
 
     getUser() {
@@ -46,6 +50,8 @@ class LoginHome extends Component {
 
     login(email, password) {
         login(email, password).then((user) => {
+            this.props.setIsAdmin(true);
+            this.props.setIsLogin(true);
             this.setState({user: user});
         });
     }
@@ -68,13 +74,10 @@ class LoginHome extends Component {
     handleLogin = (event) => {
         event.preventDefault();
         this.login(this.state.email, this.state.password)
-        getUser().then((user) => {
-            this.setState({user: user});
-        });
     }
 
     render() {
-        if (this.state.email === '') {
+        if (this.state.user.length === 0) {
             return (
                 <form onSubmit={this.handleLogin}>
                     <div>
@@ -84,6 +87,7 @@ class LoginHome extends Component {
                                required={true}
                                name="email" type="text"
                                placeholder="Enter email"
+                               value={this.state.value}
                                onChange={this.handleEmailName}/>
 
                         <label htmlFor="password">Password</label>
@@ -91,6 +95,7 @@ class LoginHome extends Component {
                                required={true}
                                name="Product password" type="text"
                                placeholder="Enter password"
+                               value={this.state.value}
                                onChange={this.handlePassword}/>
 
                         <button>Login</button>
@@ -98,13 +103,36 @@ class LoginHome extends Component {
                 </form>
             );
         } else {
+            // if(this.state.user[0].email === ADMIN_EMAIL){
+            //
+            //     return (
+            //         <ul>
+            //             <li><Link to={"/adminPanel"}>Admin Panel</Link></li>
+            //             <li>
+            //                 <h6>{this.state.user[0].email}</h6>
+            //
+            //             </li>
+            //             <li>
+            //                 <a href="http://localhost:3000" onClick={this.signOut}>Logout</a>
+            //             </li>
+            //         </ul>
+            //     );
+            //
+            // } else {
             return (
-                <div>
-                    <h1>
-                        You are already logged in
-                    </h1>
-                </div>
+                <ul>
+                    <li><Link to={"/userOrders"}>Orders</Link></li>
+                    <li>
+                        {/*<h6>{this.state.user[0].email}</h6>*/}
+
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000" onClick={this.signOut}>Logout</a>
+                    </li>
+                </ul>
             );
+            //
+            // }
         }
     }
 }

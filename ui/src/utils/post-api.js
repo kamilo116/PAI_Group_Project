@@ -47,3 +47,10 @@ function addToBasket(product_id) {
     .post(url, {product_id: product_id})
     .then(response => response.data);
 }
+
+export function login(email, password) { //todo password
+  const url = `${BASE_URL}/login`;
+  return axios
+      .post(url, {email: email, password: password})
+      .then(response => response.data);
+}

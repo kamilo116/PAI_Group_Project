@@ -71,10 +71,13 @@ class UsersController @Inject() (
     }
   }
 
-  def login(email: String) = Action.async { implicit request =>
+  def login = Action.async { implicit request =>
+    val provided_email = request.body.asJson.get("email").as[String]
+    val provided_password = request.body.asJson.get("password").as[String]
 
-    userRepository.getByEmail(email).map { user =>
-      Ok(Json.toJson(user))
+    userRepository.getByEmailAndPassword(provided_email, provided_password).map { user =>
+      Ok("Login successful").withHeaders(
+        "Access-Control-Allow-Origin" -> "*")
     }
   }
 
