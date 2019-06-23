@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addCategory, addOrder, addOrderDetail} from "../utils/post-api";
-import {addToCart, clearAddedItems} from "./actions/cartActions";
+import {addCategory, addOrder, addOrderDetail, addReview} from "../utils/post-api";
+import {addOrderState, addToCart, clearAddedItems} from "./actions/cartActions";
 import {Link} from "react-router-dom";
 import Recipe from "./Recipe";
 import {getOrderByUserId, getOrderDetailsByOrderId, getProduct, getUser} from "../utils/get-api";
+import {ADD_TO_CART} from "./actions/action-types/cart-actions";
 
 //import { addShipping } from './actions/cartActions'
 
@@ -17,15 +18,41 @@ class UserOrders extends Component {
             orderDetails: [],
             orders: [],
             products: [],
+            review_content: '',
+            mark: 0
         }
         this.getOrderDetails = this
             .getOrderDetails
+            .bind(this)
+        this.createReview = this
+            .createReview
+            .bind(this)
+        this.handleReviewContent = this
+            .handleReviewContent
+            .bind(this)
+        this.handleReviewMark = this
+            .handleReviewMark
             .bind(this)
     }
 
     componentDidMount() {
         this.getOrderDetails()
     }
+
+    handleReviewContent = (e) => {
+        this.setState({review_content: e.target.value})
+    };
+
+    handleReviewMark = (e) => {
+        this.setState({mark: e.target.value})
+    };
+
+    createReview(order_id, product_id) {
+        getUser().then((user) => {
+            addReview( order_id, product_id, this.state.mark, this.state.review_content)
+        });
+    }
+
 
     getOrderDetails() {
         let orderDetailsArray = []
@@ -90,11 +117,36 @@ class UserOrders extends Component {
                                 let order = this.state.orders.find(o => o.id ===productOrderDetail.orderId);
                                 return (
                                     <div>
-                                        <p>Product: {product.name}</p>
-                                        <p>Address: {order ? order.address : ''} </p>
-                                        <p>Quantity: {productOrderDetail.orderProductQuantity}</p>
-                                        <p>Price: {product.price} $</p>
-                                        <br></br>
+                                        <div>
+                                            <p>Product: {product.name}</p>
+                                            <p>Address: {order ? order.address : ''} </p>
+                                            <p>Quantity: {productOrderDetail.orderProductQuantity}</p>
+                                            <p>Price: {product.price} $</p>
+                                            <br></br>
+                                        </div>
+                                        <div className="review">
+                                            <label htmlFor="order_address">Order address</label>
+
+
+                                            <input id="review_content"
+                                                   required={true}
+                                                   name="Review Content" type="text"
+                                                   placeholder="Provide review"
+                                                   onChange={this.handleReviewContent}/>
+
+                                            <input id="review_mark"
+                                                   type="number"
+                                                   required={true}
+                                                   name="Mark" type="text"
+                                                   placeholder="Provide mark"
+                                                   onChange={this.handleReviewMark}/>
+
+                                            <ul>
+                                                <li onClick={()=>{this.createReview(order.id, product.id)}}><Link to="/">
+                                                    <button className="waves-effect waves-light btn" >Add review</button>
+                                                </Link></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 )
                             });

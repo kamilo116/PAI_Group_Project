@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost:9000';
 axios.defaults.withCredentials = true;
 
 
-export {addProduct, addCategory, addToBasket, addOrder, addOrderDetail};
+export {addProduct, addCategory, addToBasket, addOrder, addOrderDetail, addReview};
 
 function addProduct(product_name, product_description, product_category, product_price) {
   const url = `${BASE_URL}/api/addProduct`;
@@ -45,4 +45,14 @@ function addToBasket(product_id) {
   return axios
     .post(url, {product_id: product_id})
     .then(response => response.data);
+}
+
+function addReview(order_id, product_id, mark, review_content) {
+  const url = `${BASE_URL}/api/addReview`;
+  return axios.post(url, {
+    order_id: order_id,
+    product_id: product_id,
+    mark: parseInt(mark, 10),
+    review_content: review_content
+  }).then(response => response.data);
 }

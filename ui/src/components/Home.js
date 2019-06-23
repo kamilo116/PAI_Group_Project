@@ -122,6 +122,7 @@ class Home extends Component{
         if(this.state.products.length > 0) {
             if(this.props.isAdmin){
                 itemList = products.map(item => {
+                    let product_link = "/product/" + item.id
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
@@ -129,7 +130,9 @@ class Home extends Component{
                             </div>
 
                             <div className="card-content">
-                                <span className="card-title">{item.name}</span>
+
+                                <span className="card-title"><Link to={product_link} >{item.name} </Link></span>
+
                                 <p>{item.description}</p>
                                 <i>({this.getRelatedCategoryName(categories, item)})</i>
                                 <p><b>Price: {item.price}$</b></p>
@@ -139,7 +142,7 @@ class Home extends Component{
                 })
             } else if(!this.props.isLogin){
                 itemList = products.map(item => {
-                    let product_link = "/product/" + item.id
+
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
@@ -151,7 +154,7 @@ class Home extends Component{
                             </div>
 
                             <div className="card-content">
-                                <span className="card-title"><Link to={product_link} >{item.name} </Link></span>
+                                <span className="card-title">{item.name}</span>
                                 <p>{item.description}</p>
                                 <i>({this.getRelatedCategoryName(categories, item)})</i>
                                 <p><b>Price: {item.price}$</b></p>
@@ -162,6 +165,7 @@ class Home extends Component{
             }
             else if(this.props.isLogin){
                 itemList = products.map(item => {
+                    let product_link = "/product/" + item.id
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
@@ -173,7 +177,8 @@ class Home extends Component{
                             </div>
 
                             <div className="card-content">
-                                <span className="card-title">{item.name}</span>
+                                <span className="card-title"><Link to={product_link} >{item.name} </Link></span>
+
                                 <p>{item.description}</p>
                                 <i>({this.getRelatedCategoryName(categories, item)})</i>
                                 <p><b>Price: {item.price}$</b></p>

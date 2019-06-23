@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {addToCart, setIsLogin} from './actions/cartActions'
 import cartReducer from "./reducers/cartReducer";
-import {getProduct, getReviews} from "../utils/get-api";
+import {getProduct, getReviews, getProductData} from "../utils/get-api";
 import item1 from '../images/honey.jpg'
 import {addToBasket} from "../utils/post-api";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
@@ -36,7 +36,7 @@ class Product extends Component{
         let productId = params.productId
         let productsArray = []
         let reviewsArray = []
-        getProduct(productId).then(products => {
+        getProductData(productId).then(products => {
             console.log(products)
             products.map(product => {
                 console.log("product:" + product);
