@@ -33,8 +33,8 @@ GET           /api/orderDetailsByOrderId/:id                     controllers.Ord
 DELETE        /api/deleteOrderDetail/:id                         controllers.OrdersDetailController.deleteOrderDetail(id: Long)
 DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
 
-GET           /api/getReviews/byProductId/:id                                controllers.ReviewController.getReviewByProductId(id: Int)
-POST          /api/Review                                        controllers.ReviewController.create
+GET           /api/getReviews/byProductId/:id                    controllers.ReviewController.getReviewByProductId(id: Int)
+POST          /api/addReview                                     controllers.ReviewController.create
 
 #Not used
 GET           /signUp                                            controllers.SignUpController.view

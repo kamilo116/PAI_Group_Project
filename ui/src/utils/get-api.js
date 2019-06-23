@@ -9,6 +9,7 @@ export {
     getBasket,
     authenticate,
     getProduct,
+    getProductData,
     getUser,
     getOrderByUserId,
     getOrderDetailsByOrderId,
@@ -17,14 +18,19 @@ export {
     getReviews
 };
 
+//used by orders
 function getProduct(product_id) {
     const url = `${BASE_URL}/api/getProduct/` + product_id;
     return axios
         .get(url)
-        .then(response => {
-            console.log(response)
-            return response.data
-        } )
+}
+
+// used to display the product
+function getProductData(product_id) {
+    const url = `${BASE_URL}/api/getProduct/` + product_id;
+    return axios
+        .get(url)
+        .then(response => response.data);
 }
 
 function getReviews(product_id) {
