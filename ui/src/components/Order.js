@@ -79,6 +79,7 @@ class Order extends Component{
         return(
             < form onSubmit={this.postData}>
                 <div className="center">
+                    <br/>
 
                     <label htmlFor="order_address">Order address</label>
                     <input id="order_address"
@@ -107,7 +108,7 @@ class Order extends Component{
             return (
                 < form onSubmit={this.postData}>
                     <div className="center">
-
+                        <br/>
                         <p>
                             <label>
                                 <input type="checkbox"
