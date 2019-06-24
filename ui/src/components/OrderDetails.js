@@ -27,15 +27,13 @@ class OrderDetails extends Component {
     }
 
     createOrder() {
-        getUser().then((user) => {
-            // this.setState({user: user});
+        let user = this.props.user;
             addOrder(/*this.props.order.userId*/ user[0].id, this.props.order.address).then((order) => {
                 this.props.addedItems.map(product => {
                     addOrderDetail(order.id, product.id, product.quantity)
                     this.props.clearAddedItems();
                 })
             })
-        });
     }
 
     render() {
@@ -104,7 +102,8 @@ const mapStateToProps = (state) => {
     return {
         addedItems: state.cartReducer.addedItems,
         order: state.cartReducer.order,
-        total: state.cartReducer.total
+        total: state.cartReducer.total,
+        user: state.cartReducer.user
     }
 }
 

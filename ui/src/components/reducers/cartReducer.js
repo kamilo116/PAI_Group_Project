@@ -5,7 +5,7 @@ import {
     SUB_QUANTITY,
     ADD_QUANTITY,
     ADD_SHIPPING,
-    ADD_ORDER_STATE, CLEAR_ADDED_ITEMS, SET_IS_ADMIN, SET_IS_LOGIN
+    ADD_ORDER_STATE, CLEAR_ADDED_ITEMS, SET_IS_ADMIN, SET_IS_LOGIN, SET_USER
 } from '../actions/action-types/cart-actions'
 
 
@@ -15,7 +15,8 @@ const initState = {
     order: [],
     total: 0,
     isAdmin: false,
-    isLogin: false
+    isLogin: false,
+    user: []
 
 };
 
@@ -141,6 +142,13 @@ const cartReducer = (state = initState,action)=>{
         return {
             ...state,
             isLogin: action.isLogin
+        };
+    }
+
+    if (action.type === SET_USER) {
+        return {
+            ...state,
+            user: action.user
         };
     }
 

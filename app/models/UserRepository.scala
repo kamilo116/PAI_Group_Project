@@ -37,15 +37,15 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
 
     def email = column[String]("email")
 
-    def password = column[String]("user_password")
+    def password = column[String]("password")
 
-    def country = column[String]("user_country")
+    def country = column[String]("country")
 
-    def street = column[String]("user_street")
+    def street = column[String]("street")
 
-    def city = column[String]("user_city")
+    def city = column[String]("city")
 
-    def address = column[String]("user_address")
+    def address = column[String]("address")
 
     def postal = column[String]("user_postal")
 
@@ -105,7 +105,7 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
   }
 
   def getByEmailAndPassword(user_email: String, user_password: String): Future[Seq[UserDb]] = db.run {
-    users.filter(user => user.email === user_email && (user.password === user_password)).result
+    users.filter(user => (user.email === user_email) && (user.password === user_password)).result
   }
 
   def isEmailExist(user_email: String): Future[Boolean] = db.run {

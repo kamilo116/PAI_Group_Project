@@ -11,7 +11,8 @@ import play.api.mvc._
 import play.api.Logger
 import utils.auth.DefaultEnv
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.duration.Duration
+import scala.concurrent.{ Await, ExecutionContext, Future }
 
 @Singleton
 class UsersController @Inject() (
@@ -71,14 +72,20 @@ class UsersController @Inject() (
     }
   }
 
-  def login = Action.async { implicit request =>
+  def login = Action { implicit request =>
     val provided_email = request.body.asJson.get("email").as[String]
     val provided_password = request.body.asJson.get("password").as[String]
 
-    userRepository.getByEmailAndPassword(provided_email, provided_password).map { user =>
-      Ok("Login successful").withHeaders(
+    val user = userRepository.getByEmailAndPassword(provided_email, provided_password) /*.map { user =>
+      Ok("true").withHeaders(
         "Access-Control-Allow-Origin" -> "*")
-    }
+    }*/
+
+    Await.result(user, Duration.Inf)
+    val userResult: Seq[UserDb] = user.value.get.get
+
+    Ok(Json.toJson(userResult)).withHeaders(
+      "Access-Control-Allow-Origin" -> "*")
   }
 
   def signOut = Action { implicit request =>

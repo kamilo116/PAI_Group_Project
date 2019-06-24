@@ -9,3 +9,4 @@ export const ADD_ORDER_STATE = 'ADD_ORDER';
 export const CLEAR_ADDED_ITEMS = 'CLEAR_ADDED_ITEMS';
 export const SET_IS_ADMIN = 'SET_IS_ADMIN';
 export const SET_IS_LOGIN = 'SET_IS_LOGIN';
+export const SET_USER = 'SET_USER';

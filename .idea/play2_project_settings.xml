@@ -21,14 +21,14 @@
           <value>
             <ProjectSettingsEntry>
               <option name="sourceDir" value="D:\kamil\Studia 4 rok\2 semestr\Projektowanie aplikacji internetowych\E-Commerce — kopia\app" />
-              <option name="confDir" value="D:\kamil\Studia 4 rok\2 semestr\Projektowanie aplikacji internetowych\E-Commerce — kopia\app" />
+              <option name="confDir" value="D:\kamil\Studia 4 rok\2 semestr\Projektowanie aplikacji internetowych\PAI_Group_Project\app" />
               <option name="routesImports">
                 <list>
                   <option value="controllers.Assets.Asset" />
                   <option value="utils.route.Binders._" />
                 </list>
               </option>
-              <option name="uri" value="/D:/kamil/Studia%204%20rok/2%20semestr/Projektowanie%20aplikacji%20internetowych/E-Commerce%20—%20kopia" />
+              <option name="uri" value="/D:/kamil/Studia%204%20rok/2%20semestr/Projektowanie%20aplikacji%20internetowych/PAI_Group_Project" />
             </ProjectSettingsEntry>
           </value>
         </entry>
