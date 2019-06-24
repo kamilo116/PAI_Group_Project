@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject._
-import models.ReviewRepository
+import models.{ OrderRepository, ReviewRepository }
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
@@ -10,7 +10,10 @@ import play.api.mvc._
 import scala.concurrent.{ ExecutionContext, Future }
 
 @Singleton
-class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext)
+class ReviewController @Inject() (
+  reviewRepo: ReviewRepository,
+  orderRepo: OrderRepository,
+  cc: MessagesControllerComponents)(implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   val reviewForm: Form[CreateReviewForm] = Form {
     mapping(
@@ -41,6 +44,16 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
     }
   }
 
+  def getIsOrderReviewed(order_id: Int) = Action.async { implicit request =>
+    reviewRepo.isOrderAlreadyRated(order_id).map {
+      case (opt) =>
+        opt match {
+          case true => Ok(Json.toJson("true"))
+          case false => Ok(Json.toJson("false"))
+        }
+    }
+  }
+
   def getReviewByProductId(id: Int) = Action.async { implicit request =>
     reviewRepo.findByProductId(id).map { order =>
       Ok(Json.toJson(order))
@@ -48,18 +61,20 @@ class ReviewController @Inject() (reviewRepo: ReviewRepository, cc: MessagesCont
   }
 
   def create() = Action.async(parse.json) { implicit request =>
+
     reviewForm.bindFromRequest.fold(
       errorForm => {
         Future.successful(BadRequest("failed to create review"))
       },
       review => {
-
+        //todo add to order
         reviewRepo.create(
           review.order_id,
           review.product_id,
           review.mark,
-          review.review_content
+          review.review_content,
         ).map { _ =>
+          orderRepo.updateReviewValue(review.order_id.toLong)
           Ok("succesfully added new review")
         }
       }
