@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "../style/style.css";
-import {authenticate, getProducts, getUser, signOut} from "../utils/get-api";
+import {authenticate, getProducts, getUser, signOut, signOutAuth} from "../utils/get-api";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {setIsAdmin, setIsLogin, setUser} from "./actions/cartActions";
@@ -22,13 +22,41 @@ class LoginMaterialize extends Component {
         this.signOut = this
             .signOut
             .bind(this)
+        this.getUser = this
+            .getUser
+            .bind(this)
     }
 
+    componentDidMount() {
+        this.getUser()
+    }
+
+    getUser(){
+        getUser().then((user) => {
+            if(user.length > 0 ){
+                    if (user[0].email === ADMIN_EMAIL) {
+                        this.props.setIsAdmin(true);
+                    }
+                    this.props.setIsLogin(true);
+                    this.setState({user: user});
+                    this.props.setUser(user);
+            }
+        });
+    }
 
     signOut() {
+        debugger
         signOut().then((data) => {
             this.props.setIsAdmin(false)
             this.props.setIsLogin(false);
+            this.props.setUser([]);
+        });
+
+        // Silhouette signOut
+        signOutAuth().then((data) => {
+            this.props.setIsAdmin(false)
+            this.props.setIsLogin(false);
+            this.props.setUser([]);
         });
     }
 
@@ -67,7 +95,16 @@ class LoginMaterialize extends Component {
 
             }
         } else {
-            return (<div></div>)
+            return (
+                <ul>
+                    <li ><a href="http://localhost:9000/authenticate/facebook"><img src={facebookLogoUrl} height="30"
+                                                                                    alt="facebook"/></a></li>
+                    <li ><a href="http://localhost:9000/authenticate/google"><img src={googleLogoUrl} height="30"
+                                                                                  alt="google"/></a></li>
+                </ul>
+
+
+            );
         }
     }
 }

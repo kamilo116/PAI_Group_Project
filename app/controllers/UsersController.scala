@@ -21,7 +21,6 @@ class UsersController @Inject() (
 )(implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   val logger: Logger = Logger(this.getClass())
-  var loggedUserEmail: String = "user@test.pl"
 
   /**
    * The mapping for the person form.
@@ -79,13 +78,6 @@ class UsersController @Inject() (
     }
   }
 
-  def getUser = Action.async { implicit request =>
-    userRepository.getByEmail(loggedUserEmail).map { user: Seq[UserDb] =>
-      Ok(Json.toJson(user)).withHeaders(
-        "Access-Control-Allow-Origin" -> "*")
-    }
-  }
-
   def login = Action { implicit request =>
     val provided_email = request.body.asJson.get("email").as[String]
     val provided_password = request.body.asJson.get("password").as[String]
@@ -106,7 +98,6 @@ class UsersController @Inject() (
 
   def signOut = Action { implicit request =>
     //    val result = Redirect(routes.ApplicationController.index())
-    loggedUserEmail = ""
     Ok(views.html.home())
   }
 

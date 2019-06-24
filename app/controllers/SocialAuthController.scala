@@ -38,7 +38,7 @@ class SocialAuthController @Inject() (
   ex: ExecutionContext
 ) extends AbstractController(components) with I18nSupport with Logger {
 
-  var loggedUserEmail: String = "user@test.pl"
+  var loggedUserEmail: String = ""
   //  var loggedUserEmail: String = ""
 
   /**
@@ -64,7 +64,7 @@ class SocialAuthController @Inject() (
             silhouette.env.eventBus.publish(LoginEvent(user, request))
             userRepo.isEmailExist(user.email.getOrElse("No email")).map(isExist =>
               if (!isExist) {
-                userRepo.create(user.firstName.getOrElse("No name"), user.lastName.getOrElse("No last name"), user.email.getOrElse("No email"), "1", "x", "x", "x", "x", "")
+                userRepo.create(user.firstName.getOrElse("No name"), user.lastName.getOrElse("No last name"), user.email.getOrElse("No email"), user.userID.toString, "x", "x", "x", "x", "")
               }
             )
             loggedUserEmail = user.email.getOrElse("No email")
@@ -81,6 +81,7 @@ class SocialAuthController @Inject() (
   }
 
   def getLoggedInEmail = Action.async { implicit request =>
+    println("getLoggedInEmail loggedUserEmail " + loggedUserEmail)
     userRepo.getByEmail(loggedUserEmail).map { user: Seq[UserDb] =>
       Ok(Json.toJson(user)).withHeaders(
         "Access-Control-Allow-Origin" -> "*")
@@ -93,9 +94,12 @@ class SocialAuthController @Inject() (
    * @return The result to display.
    */
   def signOut = Action { implicit request =>
-    //    val result = Redirect(routes.ApplicationController.index())
+    //    def signOut = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     loggedUserEmail = ""
     Ok(views.html.home())
+    //    val result = Redirect(routes.ApplicationController.index())
+    //    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
+    //    silhouette.env.authenticatorService.discard(request.authenticator, result)
   }
 
 }

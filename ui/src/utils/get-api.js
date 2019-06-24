@@ -72,7 +72,7 @@ function getBasket() {
 }
 
 function getUser() {
-    const url = `${BASE_URL}/getUser`;
+    const url = `${BASE_URL}/auth/getUser`;
     return axios
         .get(url)
         .then(response => response.data);
@@ -115,6 +115,16 @@ function authenticate(provider) {
 
 export function signOut() {
     const url = `${BASE_URL}/signOut`;
+    return axios
+        .get(url)
+        .then(function (response) {
+            response.data
+        })
+}
+
+// Silhouette signOut
+export function signOutAuth() {
+    const url = `${BASE_URL}/auth/signOut`;
     return axios
         .get(url)
         .then(function (response) {
