@@ -34,7 +34,6 @@ class UserOrders extends Component {
 
     componentDidMount() {
         this.getOrderDetails()
-        // this.ordersIsRated.map(t => console.log(t))
     }
 
     handleReviewContent = (e) => {
@@ -60,9 +59,6 @@ class UserOrders extends Component {
             getOrderByUserId(user[0].id).then((orders) => {
                 orders.map(order => {
                     ordersArray.push(order)
-
-                    // getIsReviewed(order.order_id).then( (is_reviewed) => { //nie dziala
-                    //     this.ordersIsRated.push(is_reviewed)
                         getOrderDetailsByOrderId(order.id).then((orderDetails) => {
                             orderDetails.map((orderDetail) => {
                                 orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
@@ -89,9 +85,6 @@ class UserOrders extends Component {
                                 })
                             })
                         })
-
-                    // })
-
                 })
             })
         });

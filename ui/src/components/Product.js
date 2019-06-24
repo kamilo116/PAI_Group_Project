@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {addToCart, setIsLogin} from './actions/cartActions'
-import cartReducer from "./reducers/cartReducer";
 import {getProduct, getReviews, getProductData} from "../utils/get-api";
 import item1 from '../images/honey.jpg'
 import {addToBasket} from "../utils/post-api";
-import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
-import {Alert} from "react-bootstrap";
-function containsObject(obj, list) {
-    var i;
-    for (i = 0; i < list.length; i++) {
-        if (list[i].id === obj.id) {
-            return true;
-        }
-    }
 
-    return false;
-}
 class Product extends Component{
 
     constructor() {
@@ -27,7 +15,6 @@ class Product extends Component{
             productId: 0
         };
         this.handleClick = this.handleClick.bind(this)
-        this.handleClickNotLogin = this.handleClickNotLogin.bind(this)
         // this.getAllInformation = this.getAllInformation.bind(this)
     }
 
@@ -72,10 +59,6 @@ class Product extends Component{
         addToBasket(id)
     }
 
-    handleClickNotLogin = (product, id)=>{
-        alert("Please Log In");
-    }
-
     renderOption = (json) => {
         return <option value={json.id}>{json.name}</option>
     }
@@ -84,6 +67,7 @@ class Product extends Component{
         console.log("PRODUCTS " + this.state.products)
         let products = (
             this.state.products.map((product) => {
+                if(! this.props.isAdmin) {
                     return (
                         <div className="container">
                             <div className="row">
@@ -92,15 +76,16 @@ class Product extends Component{
                                 <div className="col-lg-9">
                                     <div className="column">
                                         <img src={item1}/>
-                                    <div className="column">
-                                        <h3 className="card-title">{product.name}</h3>
-                                        <span to="/" className="btn-floating halfway-fab waves-effect waves-light blue"
-                                              onClick={() => {
-                                                  this.handleClickNotLogin(product, product.id)
-                                              }}><i className="material-icons">add</i></span>
-                                        <h4>{product.price} zł</h4>
-                                        <p className="card-text">{product.description}</p>
-                                    </div>
+                                        <div className="column">
+                                            <h3 className="card-title">{product.name}</h3>
+                                            <span to="/"
+                                                  className="btn-floating halfway-fab waves-effect waves-light blue"
+                                                  onClick={() => {
+                                                      this.handleClick(product, product.id)
+                                                  }}><i className="material-icons">add</i></span>
+                                            <h4>{product.price} zł</h4>
+                                            <p className="card-text">{product.description}</p>
+                                        </div>
 
                                     </div>
 
@@ -108,6 +93,29 @@ class Product extends Component{
                             </div>
                         </div>
                     )
+                } else {
+                    return (
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-3">
+                                </div>
+                                <div className="col-lg-9">
+                                    <div className="column">
+                                        <img src={item1}/>
+                                        <div className="column">
+                                            <h3 className="card-title">{product.name}</h3>
+                                            <h4>{product.price} zł</h4>
+                                            <p className="card-text">{product.description}</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
                 }));
 
         let reviews = (
