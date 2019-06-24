@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addCategory, addOrder, addOrderDetail} from "../utils/post-api";
+import {addOrder, addOrderDetail} from "../utils/post-api";
 import item1 from "../images/honey.jpg";
 import {addToCart, clearAddedItems} from "./actions/cartActions";
 import {Link} from "react-router-dom";

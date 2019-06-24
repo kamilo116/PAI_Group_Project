@@ -25,7 +25,8 @@ class OrdersController @Inject() (
     mapping(
       "user_id" -> number,
       "order_date" -> nonEmptyText,
-      "order_address" -> nonEmptyText
+      "order_address" -> nonEmptyText,
+      "is_reviewed" -> boolean
     )(CreateOrderForm.apply)(CreateOrderForm.unapply)
   }
 
@@ -47,7 +48,7 @@ class OrdersController @Inject() (
     val user_id = request.body.asJson.get("user_id").as[Long]
     val order_address = request.body.asJson.get("order_address").as[String]
 
-    val order = orderRepo.create(user_id, order_address) /*.map(order => {
+    val order = orderRepo.create(user_id, order_address, false) /*.map(order => {
 //      Ok(Json.toJson(order)).withHeaders(
 //        "Access-Control-Allow-Origin" -> "*")
 //    })*/
@@ -60,4 +61,4 @@ class OrdersController @Inject() (
 
 }
 
-case class CreateOrderForm(userId: Int, orderDate: String, orderAddress: String)
+case class CreateOrderForm(userId: Int, orderDate: String, orderAddress: String, is_reviewed: Boolean)

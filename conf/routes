@@ -38,6 +38,9 @@ GET           /api/getReviews/byProductId/:id                                con
 POST          /api/Review                                        controllers.ReviewController.create
 POST           /registration                                 controllers.UsersController.registration
 POST           /login                                        controllers.UsersController.login
+GET           /api/getReviews/byProductId/:id                    controllers.ReviewController.getReviewByProductId(id: Int)
+GET           /api/getIsReviewed/:order_id                       controllers.ReviewController.getIsOrderReviewed(order_id: Int)
+POST          /api/addReview                                     controllers.ReviewController.create
 
 #Not used
 GET           /signUp                                            controllers.SignUpController.view

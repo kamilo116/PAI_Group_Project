@@ -51,6 +51,10 @@ class ReviewRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(impl
     review.filter(_.product_id === id).result
   }
 
+  def isOrderAlreadyRated(order_id: Int): Future[Boolean] = db.run {
+    review.filter(_.order_id === order_id).exists.result
+  }
+
   def update(newValue: Review) = db.run {
     review.insertOrUpdate(newValue)
   }
