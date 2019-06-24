@@ -55,39 +55,34 @@ class UserOrders extends Component {
         let orderDetailsArray = []
         let ordersArray = []
         let productsArray = []
-        getUser().then((user) => {
-            getOrderByUserId(user[0].id).then((orders) => {
-                orders.map(order => {
-                    ordersArray.push(order)
-                        getOrderDetailsByOrderId(order.id).then((orderDetails) => {
-                            orderDetails.map((orderDetail) => {
-                                orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
+        let user = this.props.user;
+        getOrderByUserId(user[0].id).then((orders) => {
+            orders.map(order => {
+                ordersArray.push(order)
+                getOrderDetailsByOrderId(order.id).then((orderDetails) => {
+                    orderDetails.map((orderDetail) => {
+                        orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
 
-                                getProduct(orderDetail.productId).then(products => {
-                                    products.data.map(product => {
-                                        console.log("product:" + product);
-                                        if (!productsArray.map(product => product.id).includes(product.id)) {
-                                            productsArray.push(product)
-                                        }
-                                    });
-                                    // orderDetailsArray.map(orderDetail => {
-                                    //     addValueToKey(orderDetail.orderId, orderDetail)
-                                    // })
-                                    let newState = {
-                                        products: productsArray,
-                                        orderDetails: orderDetailsArray,
-                                        orders: ordersArray
-                                    };
-                                    this.setState(newState);
-                                    // orderDetailsArray = []
-                                    // ordersArray = []
-                                    // productsArray = []
-                                })
-                            })
+                        getProduct(orderDetail.productId).then(products => {
+                            products.data.map(product => {
+                                console.log("product:" + product);
+                                if (!productsArray.map(product => product.id).includes(product.id)) {
+                                    productsArray.push(product)
+                                }
+                            });
+
+                            let newState = {
+                                products: productsArray,
+                                orderDetails: orderDetailsArray,
+                                orders: ordersArray
+                            };
+                            this.setState(newState);
+
                         })
+                    })
                 })
             })
-        });
+        })
     }
 
     render() {
@@ -101,20 +96,13 @@ class UserOrders extends Component {
                         let productIdsInOrderDetails = orderDetails.map(od => od.productId);
                         console.log("productIdsInOrderDetails")
                         console.log(productIdsInOrderDetails)
-                        // debugger;
                         let products = this.state.products.filter(product => productIdsInOrderDetails.includes(product.id));
                         if (products.length > 0) {
                             // let quantity = 0;
                             let productsToReturn = products.map((product, index) => {
                                 let productOrderDetail = this.state.orderDetails.find(od => od.productId === product.id && od.orderId === orderId);
-                                console.log("orderDetail:" )
-                                console.log(productOrderDetail)
-                                // debugger;
-                                console.log("Teraz w orders szukam ordera o id")
                                 let order = this.state.orders.find(o => o.id === productOrderDetail.orderId);
                                 let is_reviewed = order.is_reviewed;
-                                console.log("is_reviewed");
-                                console.log(is_reviewed);
                                 if(! is_reviewed) {
                                     return (
                                         <div>
@@ -218,7 +206,8 @@ const mapStateToProps = (state) => {
     return {
         addedItems: state.cartReducer.addedItems,
         order: state.cartReducer.order,
-        total: state.cartReducer.total
+        total: state.cartReducer.total,
+        user: state.cartReducer.user
     }
 }
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 const BASE_URL = 'http://localhost:9000';
 
 export {
@@ -72,11 +72,13 @@ function getBasket() {
 }
 
 function getUser() {
-    const url = `${BASE_URL}/auth/getUser`;
+    const url = `${BASE_URL}/getUser`;
     return axios
         .get(url)
         .then(response => response.data);
 }
+
+
 
 function getOrders() {
     const url = `${BASE_URL}/api/orders`;

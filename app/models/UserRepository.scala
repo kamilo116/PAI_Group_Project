@@ -37,6 +37,18 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
 
     def email = column[String]("email")
 
+    def password = column[String]("password")
+
+    def country = column[String]("country")
+
+    def street = column[String]("street")
+
+    def city = column[String]("city")
+
+    def address = column[String]("address")
+
+    def postal = column[String]("postal")
+
     /**
      * This is the tables default "projection".
      *
@@ -45,7 +57,8 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
      * In this case, we are simply passing the id, name and page parameters to the Person case classes
      * apply and unapply methods.
      */
-    def * = (id, name, surname, email) <> ((UserDb.apply _).tupled, UserDb.unapply)
+    def * = (id, name, surname, email, password,
+      country, street, city, address, postal) <> ((UserDb.apply _).tupled, UserDb.unapply)
   }
 
   /**
@@ -59,17 +72,21 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
    * This is an asynchronous operation, it will return a future of the created person, which can be used to obtain the
    * id for that person.
    */
-  def create(name: String, surname: String, email: String): Future[UserDb] = db.run {
+  def create(name: String, surname: String, email: String, password: String,
+    country: String, street: String, city: String, address: String, postal: String): Future[UserDb] = db.run {
     // We create a projection of just the name and age columns, since we're not inserting a value for the id column
-    (users.map(p => (p.name, p.surname, p.email))
+    (users.map(p => (p.name, p.surname, p.email, p.password, p.country, p.street, p.city, p.address, p.postal))
       // Now define it to return the id, because we want to know what id was generated for the person
       returning users.map(_.id)
       // And we define a transformation for the returned value, which combines our original parameters with the
       // returned id
       //      into ((UserDb, id) => UserDb(id, UserDb._1, UserDb._2, UserDb._3, UserDb._4, UserDb._5, UserDb._6, UserDb._7, UserDb._8))
-      into { case ((name, surname, email), id) => UserDb(id, name, surname, email) }
+      into {
+        case ((name, surname, email, password, country, street, city, address, postal), id) =>
+          UserDb(id, name, surname, email, password, country, street, city, address, postal)
+      }
     // And finally, insert the person into the database
-    ) += ((name, surname, email))
+    ) += ((name, surname, email, password, country, street, city, address, postal))
   }
 
   /**
@@ -87,8 +104,16 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
     users.filter(_.email === email).result
   }
 
+  def getByEmailAndPassword(user_email: String, user_password: String): Future[Seq[UserDb]] = db.run {
+    users.filter(user => (user.email === user_email) && (user.password === user_password)).result
+  }
+
   def isEmailExist(user_email: String): Future[Boolean] = db.run {
     users.filter(_.email === user_email).exists.result
+  }
+
+  def exists(user_email: String): Future[Boolean] = db.run {
+    users.filter(user => user.email === user_email).exists.result
   }
 
   def update(id: Long, name: String, surname: String, email: String): Future[Int] = {

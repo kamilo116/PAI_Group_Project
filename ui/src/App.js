@@ -18,6 +18,9 @@ import DeleteProduct from "./components/admin/DeleteProduct";
 import DeleteCategory from "./components/admin/DeleteCategory";
 import DeleteOrder from "./components/admin/DeleteOrder";
 import DeleteUser from "./components/admin/DeleteUser";
+import EditUsers from "./components/admin/EditUsers";
+import LoginHome from "./components/LoginHome";
+import Registration from "./components/Registration";
 
 class App extends Component {
 
@@ -40,7 +43,6 @@ class App extends Component {
                             <Route path="/addCategory" component={AddCategory}/>
                             <Route path="/editProducts" component={EditProducts}/>
                             <Route path="/editCategories" component={EditCategories}/>
-                            {/*<Route path="/editUsers" component={EditUser}/>*/}
                             <Route path="/editOrders" component={EditOrders}/>
 
                             <Route path="/DeleteProduct" component={DeleteProduct}/>
@@ -49,6 +51,8 @@ class App extends Component {
                             <Route path="/DeleteUser" component={DeleteUser}/>
 
                             <Route path="/product/:productId" component={Product}/>
+                            <Route path="/login" component={LoginHome}/>
+                            <Route path="/registration" component={Registration}/>
                         {/*</Router>*/}
                     </Switch>
                 </div>

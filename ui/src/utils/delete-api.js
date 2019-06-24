@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:9000';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 export {deleteFromBasket, deleteCategory, deleteProduct, deleteOrderDetail, deleteUser, deleteOrderDetailAndOrderByOrderId};
 
