@@ -13,7 +13,6 @@ class LoginHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            result: [],
             user: [],
             email: '',
             password: ''
@@ -22,12 +21,6 @@ class LoginHome extends Component {
         this.postData = this.postData.bind(this)
         this.handleEmailName = this.handleEmailName.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-    }
-
-    getUser() {
-        getUser().then((user) => {
-            this.setState({user: user});
-        });
     }
 
     handleEmailName = (e) => {
@@ -65,7 +58,7 @@ class LoginHome extends Component {
                     <label htmlFor="email">Email</label>
                     <input id="email"
                            required={true}
-                           name="email" type="text"
+                           name="email" type="email"
                            placeholder="Enter email"
                            onChange={this.handleEmailName}/>
 

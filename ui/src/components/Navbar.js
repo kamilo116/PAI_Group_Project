@@ -87,6 +87,7 @@ class Navbar extends Component {
                                     <li><Link to="/cart">My cart</Link></li>
                                     <li><Link to="/cart"><i className="material-icons">shopping_cart</i></Link></li>
                                     <li><Link to="/login">Login</Link></li>
+                                    <li><Link to="/registration">Create an account</Link></li>
                                 </ul>
                                 <ul className="right">
 

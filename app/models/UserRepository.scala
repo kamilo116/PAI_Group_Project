@@ -47,7 +47,7 @@ class UserRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(implic
 
     def address = column[String]("address")
 
-    def postal = column[String]("user_postal")
+    def postal = column[String]("postal")
 
     /**
      * This is the tables default "projection".
