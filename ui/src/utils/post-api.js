@@ -54,3 +54,15 @@ export function login(email, password) { //todo password
       .post(url, {email: email, password: password})
       .then(response => response.data);
 }
+
+
+export function registration(name, surname, email, password) { //todo password
+  const url = `${BASE_URL}/registration`;
+  return axios
+      .post(url, {
+        name: name,
+        surname: surname,
+        email: email,
+        password: password})
+      .then(response => response.data);
+}

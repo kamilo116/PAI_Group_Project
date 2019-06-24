@@ -5,7 +5,7 @@ import {
     SUB_QUANTITY,
     ADD_QUANTITY,
     ADD_SHIPPING,
-    ADD_ORDER_STATE, CLEAR_ADDED_ITEMS, SET_IS_ADMIN, SET_IS_LOGIN
+    ADD_ORDER_STATE, CLEAR_ADDED_ITEMS, SET_IS_ADMIN, SET_IS_LOGIN, SET_USER
 } from './action-types/cart-actions'
 
 //add cart action
@@ -62,5 +62,12 @@ export const setIsLogin=(isLogin)=>{
     return{
         type: SET_IS_LOGIN,
         isLogin
+    }
+};
+
+export const setUser=(user)=>{
+    return{
+        type: SET_USER,
+        user
     }
 };

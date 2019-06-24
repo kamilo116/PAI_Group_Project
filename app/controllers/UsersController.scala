@@ -11,7 +11,8 @@ import play.api.mvc._
 import play.api.Logger
 import utils.auth.DefaultEnv
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.duration.Duration
+import scala.concurrent.{ Await, ExecutionContext, Future }
 
 @Singleton
 class UsersController @Inject() (
@@ -48,7 +49,7 @@ class UsersController @Inject() (
   }
 
   def registration = Action.async { implicit request =>
-    userRegistrationForm.bindFromRequest().fold(
+    /*userRegistrationForm.bindFromRequest().fold(
       errorForm => {
         Future.successful(
           Ok("Error register user")
@@ -61,7 +62,21 @@ class UsersController @Inject() (
             Redirect(routes.ApplicationController.index()).flashing("success" -> "user.created")
           }
       }
-    )
+    )*/
+    val name = request.body.asJson.get("name").as[String]
+    val surname = request.body.asJson.get("surname").as[String]
+    val email = request.body.asJson.get("email").as[String]
+    val password = request.body.asJson.get("password").as[String]
+
+    userRepository.create(name, surname, email, password, "Poland", "Wielicka", "Cracov", "Wielicka 5/12", "20-222").map { resultMap =>
+      //      Redirect(routes.UsersController.getUsers()).flashing("success" -> "user.created")
+      Ok("User created").withHeaders("Access-Control-Allow-Origin" -> "*")
+    }.recover {
+      case ex: Exception => {
+        println("Exception in create:" + ex)
+        Ok("User exist")
+      }
+    }
   }
 
   def getUser = Action.async { implicit request =>
@@ -71,14 +86,22 @@ class UsersController @Inject() (
     }
   }
 
-  def login = Action.async { implicit request =>
+  def login = Action { implicit request =>
     val provided_email = request.body.asJson.get("email").as[String]
     val provided_password = request.body.asJson.get("password").as[String]
 
-    userRepository.getByEmailAndPassword(provided_email, provided_password).map { user =>
-      Ok("Login successful").withHeaders(
+    println("Provided email " + provided_email + " provided password " + provided_password)
+    val user = userRepository.getByEmailAndPassword(provided_email, provided_password) /*.map { user =>
+      Ok("true").withHeaders(
         "Access-Control-Allow-Origin" -> "*")
-    }
+    }*/
+
+    Await.result(user, Duration.Inf)
+    val userResult: Seq[UserDb] = user.value.get.get
+
+    println("result user " + userResult)
+    Ok(Json.toJson(userResult)).withHeaders(
+      "Access-Control-Allow-Origin" -> "*")
   }
 
   def signOut = Action { implicit request =>

@@ -20,19 +20,6 @@ function containsObject(obj, list) {
 }
 class Home extends Component{
 
-    //
-    // handleChange = selectedOption => {
-    //     this.setState({ selectedOption : selectedOption });
-    //     const {products} = this.state;
-    //
-    //     selectedOption.forEach(category=>{
-    //         let productsToState = products.filter(product => {
-    //             return product.category === category.id;
-    //         });
-    //         this.setState({products : productsToState})
-    //     })
-    // };
-
     constructor() {
         super();
         this.state = {
@@ -48,13 +35,13 @@ class Home extends Component{
     componentDidMount() {
         this.getAllInformation().then(([products, categories, user])=>{
                 this.setState({categories: categories, products: products});
-                this.props.setIsLogin(user !== undefined && user !== "" && user.length > 0);
+                this.props.setIsLogin(this.props.user !== undefined && this.props.user !== "" && this.props.user.length > 0);
             }
         )
     }
 
     getAllInformation(){
-        return Promise.all([getProducts(), getCategories(), getUser()])
+        return Promise.all([getProducts(), getCategories()/*, getUser()*/])
     }
 
     getCategories() {
@@ -184,13 +171,6 @@ class Home extends Component{
             }
 
         }
-
-        // let options2 = [{}];
-        // categories.forEach(category =>
-        //     options2.push({id: category.id, label: category.name, value: category.name})
-        // );
-
-        const { selectedOption } = this.state;
             return (
                 <div className="container">
                     <h3 className="center">Items</h3>
@@ -203,13 +183,6 @@ class Home extends Component{
                             onChange={this.handleProductCategoryChange}>
                         <option value={""} selected disabled hidden>Choose category</option>
                         {categoriesFilter.map(this.renderOption)} </select>
-                    {/*<div>*/}
-                    {/*    <ReactMultiSelectCheckboxes*/}
-                    {/*        options={options2}*/}
-                    {/*        value={selectedOption}*/}
-                    {/*        onChange={this.handleChange}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
                     <div className="box">
                         {itemList}
                     </div>
@@ -224,7 +197,8 @@ const mapStateToProps = (state)=>{
         // items: state.cartReducer.items
         addedItems: state.cartReducer.addedItems,
         isAdmin: state.cartReducer.isAdmin,
-        isLogin: state.cartReducer.isLogin
+        isLogin: state.cartReducer.isLogin,
+        user: state.cartReducer.user
     }
 }
 const mapDispatchToProps= (dispatch)=>{

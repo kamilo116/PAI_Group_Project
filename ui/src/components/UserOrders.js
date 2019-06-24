@@ -31,16 +31,17 @@ class UserOrders extends Component {
         let orderDetailsArray = []
         let ordersArray = []
         let productsArray = []
-        getUser().then((user) => {
+        let user = this.props.user;
+        // getUser().then((user) => {
             getOrderByUserId(user[0].id).then((orders) => {
                 orders.map(order => {
                     ordersArray.push(order)
                     getOrderDetailsByOrderId(order.id).then((orderDetails) => {
                         orderDetails.map((orderDetail) => {
-                            orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
-
+                            orderDetailsArray.push(orderDetail)
+                            debugger
                             getProduct(orderDetail.productId).then(products => {
-                                products.data.map(product => {
+                                products.map(product => {
                                     console.log("product:" + product);
                                     if(!productsArray.map(product=> product.id).includes(product.id)){
                                         productsArray.push(product)
@@ -63,7 +64,7 @@ class UserOrders extends Component {
                     })
                 })
             })
-        });
+        // });
     }
 
     render() {
@@ -148,7 +149,8 @@ const mapStateToProps = (state) => {
     return {
         addedItems: state.cartReducer.addedItems,
         order: state.cartReducer.order,
-        total: state.cartReducer.total
+        total: state.cartReducer.total,
+        user: state.cartReducer.user
     }
 }
 

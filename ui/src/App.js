@@ -20,6 +20,7 @@ import DeleteOrder from "./components/admin/DeleteOrder";
 import DeleteUser from "./components/admin/DeleteUser";
 import EditUsers from "./components/admin/EditUsers";
 import LoginHome from "./components/LoginHome";
+import Registration from "./components/Registration";
 
 class App extends Component {
 
@@ -51,6 +52,7 @@ class App extends Component {
 
                             <Route path="/product/:productId" component={Product}/>
                             <Route path="/login" component={LoginHome}/>
+                            <Route path="/registration" component={Registration}/>
                         {/*</Router>*/}
                     </Switch>
                 </div>

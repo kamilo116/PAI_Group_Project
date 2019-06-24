@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import {ADMIN_EMAIL, LoginMaterialize} from "./LoginMaterialize";
+import LoginMaterialize, {ADMIN_EMAIL} from "./LoginMaterialize";
 import React, {Component} from 'react';
 import {authenticate, getProducts, getUser} from "../utils/get-api";
 import {connect} from "react-redux";
@@ -29,8 +29,9 @@ class Navbar extends Component {
     }
 
     render() {
-        if (this.state.user.length > 0) {
-            if (this.state.user[0].email === ADMIN_EMAIL) {
+        debugger
+        if (this.props.user.length > 0) {
+            if (this.props.user[0].email === ADMIN_EMAIL) {
                 return (
                     <nav className="nav-center" role="navigation">
 
@@ -86,6 +87,7 @@ class Navbar extends Component {
                                     <li><Link to="/cart">My cart</Link></li>
                                     <li><Link to="/cart"><i className="material-icons">shopping_cart</i></Link></li>
                                     <li><Link to="/login">Login</Link></li>
+                                    <li><Link to="/registration">Create an account</Link></li>
                                 </ul>
                                 <ul className="right">
 
@@ -102,7 +104,8 @@ class Navbar extends Component {
 }
 const mapStateToProps = (state)=>{
     return {
-        isAdmin: state.cartReducer.isAdmin
+        isAdmin: state.cartReducer.isAdmin,
+        user: state.cartReducer.user
     }
 }
 const mapDispatchToProps= (dispatch)=>{
