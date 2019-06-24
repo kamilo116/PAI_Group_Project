@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addCategory, addOrder, addOrderDetail, addReview} from "../utils/post-api";
-import {addOrderState, addToCart, clearAddedItems} from "./actions/cartActions";
+import { addReview} from "../utils/post-api";
+import { addToCart, clearAddedItems} from "./actions/cartActions";
 import {Link} from "react-router-dom";
-import Recipe from "./Recipe";
 import {getOrderByUserId, getOrderDetailsByOrderId, getProduct, getUser} from "../utils/get-api";
-import {ADD_TO_CART} from "./actions/action-types/cart-actions";
 
-//import { addShipping } from './actions/cartActions'
 
 class UserOrders extends Component {
 
@@ -62,32 +59,32 @@ class UserOrders extends Component {
             getOrderByUserId(user[0].id).then((orders) => {
                 orders.map(order => {
                     ordersArray.push(order)
-                    getOrderDetailsByOrderId(order.id).then((orderDetails) => {
-                        orderDetails.map((orderDetail) => {
-                            orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
+                        getOrderDetailsByOrderId(order.id).then((orderDetails) => {
+                            orderDetails.map((orderDetail) => {
+                                orderDetailsArray.push(orderDetail) // to sie wykonuje x razy a potem kod nizej
 
-                            getProduct(orderDetail.productId).then(products => {
-                                products.data.map(product => {
-                                    console.log("product:" + product);
-                                    if(!productsArray.map(product=> product.id).includes(product.id)){
-                                        productsArray.push(product)
-                                    }
-                                });
-                                // orderDetailsArray.map(orderDetail => {
-                                //     addValueToKey(orderDetail.orderId, orderDetail)
-                                // })
-                                let newState = {
-                                    products: productsArray,
-                                    orderDetails: orderDetailsArray,
-                                    orders: ordersArray
-                                };
-                                this.setState(newState);
-                                // orderDetailsArray = []
-                                // ordersArray = []
-                                // productsArray = []
+                                getProduct(orderDetail.productId).then(products => {
+                                    products.data.map(product => {
+                                        console.log("product:" + product);
+                                        if (!productsArray.map(product => product.id).includes(product.id)) {
+                                            productsArray.push(product)
+                                        }
+                                    });
+                                    // orderDetailsArray.map(orderDetail => {
+                                    //     addValueToKey(orderDetail.orderId, orderDetail)
+                                    // })
+                                    let newState = {
+                                        products: productsArray,
+                                        orderDetails: orderDetailsArray,
+                                        orders: ordersArray
+                                    };
+                                    this.setState(newState);
+                                    // orderDetailsArray = []
+                                    // ordersArray = []
+                                    // productsArray = []
+                                })
                             })
                         })
-                    })
                 })
             })
         });
@@ -114,41 +111,62 @@ class UserOrders extends Component {
                                 console.log(productOrderDetail)
                                 // debugger;
                                 console.log("Teraz w orders szukam ordera o id")
-                                let order = this.state.orders.find(o => o.id ===productOrderDetail.orderId);
-                                return (
-                                    <div>
+                                let order = this.state.orders.find(o => o.id === productOrderDetail.orderId);
+                                let is_reviewed = order.is_reviewed;
+                                console.log("is_reviewed");
+                                console.log(is_reviewed);
+                                if(! is_reviewed) {
+                                    return (
                                         <div>
-                                            <p>Product: {product.name}</p>
-                                            <p>Address: {order ? order.address : ''} </p>
-                                            <p>Quantity: {productOrderDetail.orderProductQuantity}</p>
-                                            <p>Price: {product.price} $</p>
-                                            <br></br>
+                                            <div>
+                                                <p>Product: {product.name}</p>
+                                                <p>Address: {order ? order.address : ''} </p>
+                                                <p>Quantity: {productOrderDetail.orderProductQuantity}</p>
+                                                <p>Price: {product.price} $</p>
+                                                <br></br>
+                                            </div>
+                                            <div className="review">
+
+
+                                                <input id="review_content"
+                                                       required={true}
+                                                       name="Review Content" type="text"
+                                                       placeholder="Provide review"
+                                                       onChange={this.handleReviewContent}/>
+
+                                                <input id="review_mark"
+                                                       type="number"
+                                                       required={true}
+                                                       name="Mark" type="text"
+                                                       placeholder="Provide mark"
+                                                       onChange={this.handleReviewMark}/>
+
+                                                <ul>
+                                                    <li onClick={() => {
+                                                        this.createReview(order.id, product.id)
+                                                    }}><Link to="/">
+                                                        <button className="waves-effect waves-light btn">Add review
+                                                        </button>
+                                                    </Link></li>
+                                                </ul>
+
+
+                                            </div>
                                         </div>
-                                        <div className="review">
-                                            <label htmlFor="order_address">Order address</label>
-
-
-                                            <input id="review_content"
-                                                   required={true}
-                                                   name="Review Content" type="text"
-                                                   placeholder="Provide review"
-                                                   onChange={this.handleReviewContent}/>
-
-                                            <input id="review_mark"
-                                                   type="number"
-                                                   required={true}
-                                                   name="Mark" type="text"
-                                                   placeholder="Provide mark"
-                                                   onChange={this.handleReviewMark}/>
-
-                                            <ul>
-                                                <li onClick={()=>{this.createReview(order.id, product.id)}}><Link to="/">
-                                                    <button className="waves-effect waves-light btn" >Add review</button>
-                                                </Link></li>
-                                            </ul>
+                                    )
+                                } else {
+                                    return (
+                                        <div>
+                                            <div>
+                                                <p>Product: {product.name}</p>
+                                                <p>Address: {order ? order.address : ''} </p>
+                                                <p>Quantity: {productOrderDetail.orderProductQuantity}</p>
+                                                <p>Price: {product.price} $</p>
+                                                <br></br>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
+                                }
                             });
                             let total = 0;
                             products.map((product, index) => {

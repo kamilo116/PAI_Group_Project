@@ -34,6 +34,7 @@ DELETE        /api/deleteOrderDetail/:id                         controllers.Ord
 DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
 
 GET           /api/getReviews/byProductId/:id                    controllers.ReviewController.getReviewByProductId(id: Int)
+GET           /api/getIsReviewed/:order_id                       controllers.ReviewController.getIsOrderReviewed(order_id: Int)
 POST          /api/addReview                                     controllers.ReviewController.create
 
 #Not used
