@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {addToCart, setIsLogin} from './actions/cartActions'
+import {addToCart, isChecked, optionValue, setIsLogin} from './actions/cartActions'
 import cartReducer from "./reducers/cartReducer";
 import {authenticate, getCategories, getProducts, getUser} from "../utils/get-api";
 import item1 from '../images/honey.jpg'
@@ -25,7 +25,7 @@ class Home extends Component{
         this.state = {
             products: [],
             categories: [],
-            selectedOption: null,
+            selectedCategory: null,
         };
         this.handleClick = this.handleClick.bind(this)
         this.handleClickNotLogin = this.handleClickNotLogin.bind(this)
@@ -77,7 +77,7 @@ class Home extends Component{
 
 
     handleProductCategoryChange = (e) => {
-        this.setState({selectedOption: e.target.value});
+        this.setState({selectedCategory: e.target.value});
     }
 
     renderOption = (json) => {
@@ -88,18 +88,32 @@ class Home extends Component{
         let {products} = this.state;
         const {categories} = this.state;
         let productsTemp = [];
-        let selectionOption = this.state.selectedOption;
-        if(this.state.selectedOption !== null){
-            if(this.state.selectedOption !== "-1"){
+        let selected_options = this.props.option_value;
+        if(this.state.selectedCategory !== null){
+            if(this.state.selectedCategory !== "-1"){
             productsTemp = products.filter(product=>
-                product.category == this.state.selectedOption
+                product.category == this.state.selectedCategory
             )
                 products = productsTemp;
             }
+        }
+        console.log("this.state");
+        console.log(this.state);
 
+        console.log("this.props");
+        console.log(this.props);
+
+        if(selected_options !== null){
+            console.log(selected_options);
+            // if(this.state.selectedCategory !== "-1"){
+            //     productsTemp = products.filter(product=>
+            //         product.category == this.state.selectedCategory
+            //     )
+            //     products = productsTemp;
+            // }
         }
 
-        let categoriesFilter = categories
+        let categoriesFilter = categories;
         let all = {
             id: -1,
             name: "All"
@@ -203,14 +217,19 @@ const mapStateToProps = (state)=>{
         addedItems: state.cartReducer.addedItems,
         isAdmin: state.cartReducer.isAdmin,
         isLogin: state.cartReducer.isLogin,
-        user: state.cartReducer.user
+        user: state.cartReducer.user,
+        option: state.cartReducer.checkedItems,
+        option_value: state.cartReducer.optionValue,
+        is_checked: state.cartReducer.isChecked
     }
 }
 const mapDispatchToProps= (dispatch)=>{
 
     return{
         addToCart: (product)=>{dispatch(addToCart(product))},
-        setIsLogin: (isLogin)=>{dispatch(setIsLogin(isLogin))}
+        setIsLogin: (isLogin)=>{dispatch(setIsLogin(isLogin))},
+        optionValue: (option)=>{dispatch(optionValue(option))},
+        isChecked: (option)=>{dispatch(isChecked(option))}
     }
 }
 

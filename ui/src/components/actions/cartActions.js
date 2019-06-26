@@ -5,7 +5,14 @@ import {
     SUB_QUANTITY,
     ADD_QUANTITY,
     ADD_SHIPPING,
-    ADD_ORDER_STATE, CLEAR_ADDED_ITEMS, SET_IS_ADMIN, SET_IS_LOGIN, SET_USER
+    ADD_ORDER_STATE,
+    CLEAR_ADDED_ITEMS,
+    SET_IS_ADMIN,
+    SET_IS_LOGIN,
+    SET_USER,
+    SET_OPTIONS,
+    SET_OPTION_VALUE,
+    SET_IS_CHECKED
 } from './action-types/cart-actions'
 
 //add cart action
@@ -62,6 +69,27 @@ export const setIsLogin=(isLogin)=>{
     return{
         type: SET_IS_LOGIN,
         isLogin
+    }
+};
+
+export const setCheckedOptions=(checked_options)=>{
+    return{
+        type: SET_OPTIONS,
+        checked_options
+    }
+};
+
+export const optionValue=(checked_options)=>{
+    return{
+        type: SET_OPTION_VALUE,
+        checked_options
+    }
+};
+
+export const isChecked=(is_checked)=>{
+    return{
+        type: SET_IS_CHECKED,
+        is_checked
     }
 };
 

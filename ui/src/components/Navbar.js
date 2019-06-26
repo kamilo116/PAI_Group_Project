@@ -29,7 +29,6 @@ class Navbar extends Component {
     }
 
     render() {
-        debugger
         if (this.props.user.length > 0) {
             if (this.props.user[0].email === ADMIN_EMAIL) {
                 return (

@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import LoginMaterialize, {ADMIN_EMAIL} from "./LoginMaterialize";
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {setIsAdmin} from "./actions/cartActions";
+import {isChecked, optionValue, setCheckedOptions, setIsAdmin, setIsLogin} from "./actions/cartActions";
 import PropTypes from 'prop-types';
 
 
@@ -80,12 +80,11 @@ const opts = [
     price_option_checkboxes, year_option_checkboxes, color_option_checkboxes
 ]
 
-const Checkbox = ({ type = 'checkbox', name, checked = false, onChange }) => (
+const Checkbox = ({ type = 'checkbox', name, checked = true, onChange }) => (
     <label><input type={type} name={name} checked={checked} onChange={onChange} /></label>
 );
 
 Checkbox.propTypes = {
-    option: PropTypes.option,
     type: PropTypes.string,
     name: PropTypes.string.isRequired,
     checked: PropTypes.bool,
@@ -100,6 +99,8 @@ class OptionsTab extends Component {
 
         this.state = {
             checkedItems: new Map(),
+            option_value: "",
+            is_checked: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -107,9 +108,12 @@ class OptionsTab extends Component {
 
 
     handleChange(e) {
+        const option = e.target.option;
         const item = e.target.name;
         const isChecked = e.target.checked;
         this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
+        console.log(item );
+        console.log( isChecked );
     }
 
 
@@ -154,7 +158,10 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps= (dispatch)=>{
 
     return{
-        setIsAdmin: (isAdmin)=>{dispatch(setIsAdmin(isAdmin))}
+        setIsAdmin: (isAdmin)=>{dispatch(setIsAdmin(isAdmin))},
+        setCheckedOptions: (option)=>{dispatch(setCheckedOptions(option))},
+        optionValue: (option)=>{dispatch(optionValue(option))},
+        isChecked: (option)=>{dispatch(isChecked(option))}
     }
 }
 

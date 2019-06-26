@@ -10,3 +10,7 @@ export const CLEAR_ADDED_ITEMS = 'CLEAR_ADDED_ITEMS';
 export const SET_IS_ADMIN = 'SET_IS_ADMIN';
 export const SET_IS_LOGIN = 'SET_IS_LOGIN';
 export const SET_USER = 'SET_USER';
+export const SET_OPTIONS = 'SET_OPTIONS';
+export const SET_OPTION_VALUE = 'OPTION_VALUE';
+export const SET_IS_CHECKED = 'IS_CHECKED';
+
