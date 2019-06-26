@@ -21,6 +21,7 @@ import DeleteUser from "./components/admin/DeleteUser";
 import EditUsers from "./components/admin/EditUsers";
 import LoginHome from "./components/LoginHome";
 import Registration from "./components/Registration";
+import OptionsTab from "./components/OptionsTab";
 
 class App extends Component {
 
@@ -30,6 +31,7 @@ class App extends Component {
             <BrowserRouter>
                 <div className="App">
                     <Navbar/>
+                    <OptionsTab/>
                     <Switch>
                         {/*<Router history={browserHistory}>*/}
                             <Route exact path="/" component={Home}/>
