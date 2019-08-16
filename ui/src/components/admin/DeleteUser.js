@@ -1,7 +1,7 @@
 // import React, {Component} from 'react';
 // import "../../style/style.css";
 // import {Link} from "react-router-dom";
-// import {getCategories, getProducts, getUser, getUsers} from "../../utils/get-api";
+// import {getCategories, getProducts, setUser, getUsers} from "../../utils/get-api";
 // import {deleteProduct, deleteUser} from "../../utils/delete-api";
 //
 //
@@ -28,7 +28,7 @@
 //
 //
 //     handleDeleteAction(user_id) {
-//         getUser().then(user=>{
+//         setUser().then(user=>{
 //             if(user[0].id !== user_id){
 //                 deleteUser(user_id)
 //                 this.setState({deletedUserId: user_id})

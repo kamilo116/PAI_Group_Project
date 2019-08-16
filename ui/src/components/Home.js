@@ -32,8 +32,8 @@ function containsObject(obj, list) {
 }
 class Home extends Component{
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             products: [],
             categories: [],
@@ -53,7 +53,7 @@ class Home extends Component{
     }
 
     getAllInformation(){
-        return Promise.all([getProducts(), getCategories()/*, getUser()*/])
+        return Promise.all([getProducts(), getCategories(), getUser()])
     }
 
     getCategories() {
@@ -189,7 +189,7 @@ class Home extends Component{
         }
             return (
                 <div className="container">
-                    <h3 className="center">Items</h3>
+                    <h3 className="center">In stock</h3>
 
                     <label htmlFor="formControlsSelect">Choose category</label>
                     <select id="formControlsSelect"

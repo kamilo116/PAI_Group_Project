@@ -4,7 +4,7 @@ import {login} from "../utils/post-api";
 import {setIsAdmin, setIsLogin, setUser} from "./actions/cartActions";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {ADMIN_EMAIL} from "./LoginMaterialize";
+import LoginMaterialize, {ADMIN_EMAIL} from "./LoginMaterialize";
 
 
 class LoginHome extends Component {
@@ -17,10 +17,24 @@ class LoginHome extends Component {
             email: '',
             password: ''
         }
-
         this.postData = this.postData.bind(this)
+
         this.handleEmailName = this.handleEmailName.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.setUser = this.setUser.bind(this);
+    }
+
+    // componentDidMount() {
+    //     this.setUser()
+    // }
+
+    setUser = (e) => {
+        getUser().then((user) => {
+            this.setState({user: e.target.user});
+            if (user[0] !== undefined && user[0].email === ADMIN_EMAIL) {
+                this.props.setIsAdmin(true);
+            }
+        });
     }
 
     handleEmailName = (e) => {
@@ -43,7 +57,7 @@ class LoginHome extends Component {
                 this.props.setIsLogin(true);
                 this.setState({user: user});
                 this.props.setUser(user);
-                this.props.history.push("");// Redirect
+                this.props.history.push("");
             } else {
                 alert("Wrong email or password!")
             }
@@ -52,6 +66,8 @@ class LoginHome extends Component {
 
     render() {
         return (
+            <div className="center">
+
             <form onSubmit={this.postData}>
                 <div className="center">
                     <br/>
@@ -71,8 +87,16 @@ class LoginHome extends Component {
 
                     <button className="waves-effect waves-light btn">Login</button>
                 </div>
+
             </form>
+                <div>
+                    <LoginMaterialize />
+                </div>
+            </div>
+
         );
+        this.props.setIsLogin(true);
+        this.props.history.push("");
     }
 }
 

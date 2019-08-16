@@ -22,16 +22,16 @@ class LoginMaterialize extends Component {
         this.signOut = this
             .signOut
             .bind(this)
-        this.getUser = this
-            .getUser
+        this.setUser = this
+            .setUser
             .bind(this)
     }
 
     componentDidMount() {
-        this.getUser()
+        this.setUser()
     }
 
-    getUser(){
+    setUser(){
         getUser().then((user) => {
             if(user.length > 0 ){
                     if (user[0].email === ADMIN_EMAIL) {
@@ -65,7 +65,6 @@ class LoginMaterialize extends Component {
             if (this.props.user[0].email === ADMIN_EMAIL) {
                 return (
                     <ul>
-                        {/*<li><Link to={"/userOrders"}>Orders</Link></li>*/}
                         <li><Link to={"/adminPanel"}>Admin Panel</Link></li>
                         <li>
                             <h6>{this.props.user[0].name} {this.props.user[0].surname} </h6>
@@ -81,7 +80,6 @@ class LoginMaterialize extends Component {
             } else {
                 return (
                     <ul>
-                        <li><Link to={"/userOrders"}>Orders</Link></li>
                         <li>
                             <h6>{this.props.user[0].name} {this.props.user[0].surname} </h6>
                             <h6>{this.props.user[0].email}</h6>
@@ -133,4 +131,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginMaterialize)
-// export {LoginMaterialize}

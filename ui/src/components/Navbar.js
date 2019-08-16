@@ -8,8 +8,8 @@ import {addToCart, setIsAdmin} from "./actions/cartActions";
 class Navbar extends Component {
 
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             user: []
         }
@@ -20,6 +20,7 @@ class Navbar extends Component {
     }
 
     getUser() {
+        debugger
         getUser().then((user) => {
             this.setState({user: user});
             if (user[0] !== undefined && user[0].email === ADMIN_EMAIL) {
@@ -64,8 +65,6 @@ class Navbar extends Component {
 
                                 </ul>
                                 <ul className="right">
-
-
                                     <LoginMaterialize
                                     />
                                 </ul>
@@ -81,19 +80,14 @@ class Navbar extends Component {
                         <div className="nav-wrapper">
                             <div className="container">
                                 <ul className="left hide-on-med-and-down">
-                                    {/*<Link to="/" className="brand-logo center">Shopping</Link>*/}
 
                                     <li><Link to="/">Shop</Link></li>
                                     <li><Link to="/cart">My cart</Link></li>
                                     <li><Link to="/cart"><i className="material-icons">shopping_cart</i></Link></li>
-                                    <li><Link to="/login">Login</Link></li>
                                     <li><Link to="/registration">Create an account</Link></li>
                                 </ul>
                                 <ul className="right">
-
-
-                                    <LoginMaterialize
-                                    />
+                                    <li><Link to="/login">Login</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -117,4 +111,3 @@ const mapDispatchToProps= (dispatch)=>{
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(Navbar)
-// export default Navbar;
