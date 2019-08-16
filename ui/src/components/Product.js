@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {addToCart, setIsLogin} from './actions/cartActions'
 import {getProduct, getReviews, getProductData} from "../utils/get-api";
-import item1 from '../images/honey.jpg'
 import {addToBasket} from "../utils/post-api";
+
+import t_shirt_pol from "../images/pol.jpg";
+import t_shirt_arg from "../images/arg.jpg";
+import t_shirt_bel from "../images/bel.jpg";
+import t_shirt_fr from "../images/fr.jpg";
+
+var tshirts = {
+    "Polish": t_shirt_pol,
+    "Argentinean": t_shirt_arg,
+    "Belgian": t_shirt_bel,
+    "French": t_shirt_fr
+};
 
 class Product extends Component{
 
@@ -75,7 +86,7 @@ class Product extends Component{
                                 </div>
                                 <div className="col-lg-9">
                                     <div className="column">
-                                        <img src={item1}/>
+                                        <img src={tshirts[product.name]}/>
                                         <div className="column">
                                             <h3 className="card-title">{product.name}</h3>
                                             <span to="/"
@@ -101,7 +112,7 @@ class Product extends Component{
                                 </div>
                                 <div className="col-lg-9">
                                     <div className="column">
-                                        <img src={item1}/>
+                                        <img src={tshirts[product.name]}/>
                                         <div className="column">
                                             <h3 className="card-title">{product.name}</h3>
                                             <h4>{product.price} zł</h4>

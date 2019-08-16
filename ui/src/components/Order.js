@@ -61,16 +61,6 @@ class Order extends Component{
     }
 
     postData = (event) => {
-        // event.preventDefault();
-
-        // if(this.state.personal_collection){
-        //     addOrder(1, defaultAddress)
-        // } else {
-        //     addOrder(1, this.state.address.toString())
-        // }
-        // this.props.history.push('/orderDetails')
-        // window.location.href = ("/orderDetails");
-
     }
 
     render(){

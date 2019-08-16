@@ -5,6 +5,18 @@ import { removeItem,addQuantity,subtractQuantity} from './actions/cartActions'
 import Recipe from './Recipe'
 import item1 from '../images/honey.jpg'
 import {deleteFromBasket} from "../utils/delete-api";
+import t_shirt_pol from "../images/pol.jpg";
+import t_shirt_arg from "../images/arg.jpg";
+import t_shirt_bel from "../images/bel.jpg";
+import t_shirt_fr from "../images/fr.jpg";
+
+var tshirts = {
+    "Polish": t_shirt_pol,
+    "Argentinean": t_shirt_arg,
+    "Belgian": t_shirt_bel,
+    "French": t_shirt_fr
+};
+
 
 class Cart extends Component{
 
@@ -30,7 +42,7 @@ class Cart extends Component{
 
                         <li className="collection-item avatar" key={item.id}>
                             <div className="item-img">
-                                <img src={item1} alt={item1} className=""/>
+                                <img src={tshirts[item.name]} alt={item.name} className=""/>
                             </div>
 
                             <div className="item-desc">

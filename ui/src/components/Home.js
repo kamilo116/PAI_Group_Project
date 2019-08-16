@@ -3,11 +3,23 @@ import { connect } from 'react-redux'
 import {addToCart, setIsLogin} from './actions/cartActions'
 import cartReducer from "./reducers/cartReducer";
 import {authenticate, getCategories, getProducts, getUser} from "../utils/get-api";
-import item1 from '../images/honey.jpg'
+import t_shirt_pol from '../images/pol.jpg'
+import t_shirt_arg from '../images/arg.jpg'
+import t_shirt_bel from '../images/bel.jpg'
+import t_shirt_fr from '../images/fr.jpg'
 import {addToBasket} from "../utils/post-api";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import {Alert} from "react-bootstrap";
 import {Link} from "react-router-dom";
+
+var tshirts = {
+    "Polish": t_shirt_pol,
+    "Argentinean": t_shirt_arg,
+    "Belgian": t_shirt_bel,
+    "French": t_shirt_fr
+};
+
+
 function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
@@ -113,7 +125,7 @@ class Home extends Component{
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
-                                <img src={item1} alt={item.name}/>
+                                <img src={tshirts[item.name]} alt={item.name}/>
                             </div>
 
                             <div className="card-content">
@@ -133,7 +145,7 @@ class Home extends Component{
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
-                                <img src={item1} alt={item.name}/>
+                                <img src={tshirts[item.name]} alt={item.name}/>
                                 <span to="/" className="btn-floating halfway-fab waves-effect waves-light blue"
                                       onClick={() => {
                                           this.handleClickNotLogin(item, item.id)
@@ -156,8 +168,7 @@ class Home extends Component{
                     return (
                         <div className="card" key={item.id}>
                             <div className="card-image">
-                                <img src={item1} alt={item.name}/>
-                                <span to="/" className="btn-floating halfway-fab waves-effect waves-light blue"
+                                <img src={tshirts[item.name]} alt={item.name}/>                                <span to="/" className="btn-floating halfway-fab waves-effect waves-light blue"
                                       onClick={() => {
                                           this.handleClick(item, item.id)
                                       }}><i className="material-icons">add</i></span>
