@@ -21,16 +21,12 @@ class LoginHome extends Component {
 
         this.handleEmailName = this.handleEmailName.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-        this.setUser = this.setUser.bind(this);
     }
 
-    // componentDidMount() {
-    //     this.setUser()
-    // }
 
-    setUser = (e) => {
+    setUser (){
         getUser().then((user) => {
-            this.setState({user: e.target.user});
+            this.setState({user: user});
             if (user[0] !== undefined && user[0].email === ADMIN_EMAIL) {
                 this.props.setIsAdmin(true);
             }
@@ -95,8 +91,6 @@ class LoginHome extends Component {
             </div>
 
         );
-        this.props.setIsLogin(true);
-        this.props.history.push("");
     }
 }
 

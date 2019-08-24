@@ -9,12 +9,15 @@ import t_shirt_pol from "../images/pol.jpg";
 import t_shirt_arg from "../images/arg.jpg";
 import t_shirt_bel from "../images/bel.jpg";
 import t_shirt_fr from "../images/fr.jpg";
+import default_t_shirt from "../images/default.png";
+
 
 var tshirts = {
     "Polish": t_shirt_pol,
     "Argentinean": t_shirt_arg,
     "Belgian": t_shirt_bel,
-    "French": t_shirt_fr
+    "French": t_shirt_fr,
+    "default": default_t_shirt
 };
 
 class OrderDetails extends Component {

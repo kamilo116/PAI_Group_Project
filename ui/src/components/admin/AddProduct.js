@@ -71,7 +71,7 @@ class AddProduct extends Component {
     postData = (event) => {
         event.preventDefault();
         this.setState({product_added: false});
-        addProduct(this.state.product_name, this.state.product_description, this.state.product_category, this.state.product_price);
+        addProduct("default", this.state.product_description, this.state.product_category, this.state.product_price);
         this.setState({product_added: true});
     }
 
