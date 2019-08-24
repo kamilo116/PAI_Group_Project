@@ -5,8 +5,6 @@ import {Link} from "react-router-dom";
 import {getOrderByUserId, getOrderDetailsByOrderId, getOrders, getProduct, getUser} from "../../utils/get-api";
 import {deleteOrderDetailAndOrderByOrderId} from "../../utils/delete-api";
 
-//import { addShipping } from './actions/cartActions'
-
 class DeleteOrder extends Component {
 
     constructor(props) {
@@ -74,24 +72,13 @@ class DeleteOrder extends Component {
             (
                 this.state.orders.map((order) => {
                     if (this.state.products.length > 0) {
-
-                        // debugger;
                         let orderId = order.id
                         let orderDetails = this.state.orderDetails.filter(od => od.orderId === order.id);
                         let productIdsInOrderDetails = orderDetails.map(od => od.productId);
-                        console.log("productIdsInOrderDetails")
-                        console.log(productIdsInOrderDetails)
-                        // debugger;
                         let products = this.state.products.filter(product => productIdsInOrderDetails.includes(product.id));
-                        // If product is deleted but is in orderDetail it not find this product
                         if (products.length > 0) {
-                            // let quantity = 0;
                             let productsToReturn = products.map((product, index) => {
                                 let productOrderDetail = this.state.orderDetails.find(od => od.productId === product.id && od.orderId === orderId);
-                                console.log("orderDetail:" )
-                                console.log(productOrderDetail)
-                                // debugger;
-                                console.log("Teraz w orders szukam ordera o id")
                                 let order = this.state.orders.find(o => o.id ===productOrderDetail.orderId);
                                 return (
                                     <div>
@@ -135,7 +122,6 @@ class DeleteOrder extends Component {
             (
                 <p>Nothing.</p>
             )
-        // debugger
         return (
             <div className="container">
                 <br></br>

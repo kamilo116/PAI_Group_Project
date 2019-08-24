@@ -132,4 +132,3 @@ const mapDispatchToProps = (dispatch)=>{
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Order)
-// export default Order

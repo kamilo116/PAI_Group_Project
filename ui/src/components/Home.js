@@ -191,7 +191,7 @@ class Home extends Component{
         }
             return (
                 <div className="container">
-                    <h3 className="center">In stock</h3>
+                    <h3 className="center">Welcome</h3>
 
                     <label htmlFor="formControlsSelect">Choose category</label>
                     <select id="formControlsSelect"
@@ -210,9 +210,6 @@ class Home extends Component{
 }
 const mapStateToProps = (state)=>{
     return {
-        // TODO zmiana
-        // To chyba bierze z tego reducera wpisane z palca dane i daje do items
-        // items: state.cartReducer.items
         addedItems: state.cartReducer.addedItems,
         isAdmin: state.cartReducer.isAdmin,
         isLogin: state.cartReducer.isLogin,

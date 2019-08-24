@@ -98,7 +98,6 @@ class UserOrders extends Component {
                         console.log(productIdsInOrderDetails)
                         let products = this.state.products.filter(product => productIdsInOrderDetails.includes(product.id));
                         if (products.length > 0) {
-                            // let quantity = 0;
                             let productsToReturn = products.map((product, index) => {
                                 let productOrderDetail = this.state.orderDetails.find(od => od.productId === product.id && od.orderId === orderId);
                                 let order = this.state.orders.find(o => o.id === productOrderDetail.orderId);

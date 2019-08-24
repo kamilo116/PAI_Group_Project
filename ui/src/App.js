@@ -31,7 +31,6 @@ class App extends Component {
                 <div className="App">
                     <Navbar/>
                     <Switch>
-                        {/*<Router history={browserHistory}>*/}
                             <Route exact path="/" component={Home}/>
                             <Route path="/cart" component={Cart}/>
                             <Route path="/order" component={Order}/>
@@ -53,7 +52,6 @@ class App extends Component {
                             <Route path="/product/:productId" component={Product}/>
                             <Route path="/login" component={LoginHome}/>
                             <Route path="/registration" component={Registration}/>
-                        {/*</Router>*/}
                     </Switch>
                 </div>
             </BrowserRouter>
