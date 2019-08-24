@@ -1,8 +1,9 @@
-E-Commerce project.
+#E-Biznes
 
-Scala, React, SQLite, Slick, Play 
+```
+# cd ui
+# npm install
 
-Run in the terminal:
-cd ui
-
-npm install
+...
+# sbt run
+```
