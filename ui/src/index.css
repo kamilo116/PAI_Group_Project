@@ -1,16 +1,6 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-.a{
-  color: #ffffff;
-}
-.rows {
-  display: flex
-}
+
 nav{
-  background-color: #6497b1 !important;
+  background-color: #df3e5f;
 }
 .box{
   display: flex;
@@ -24,8 +14,6 @@ nav{
 .card{
   width: 300px;
 }
-
-
 .card .card-image .card-title{
   color: black;
   font-weight: 400
@@ -39,7 +27,7 @@ nav{
 .collection-item.avatar .title {
   font-size: 20px;
   font-weight: 500;
-  color: #005b96;
+  color: #EEEED1;
   display: block;
   margin-bottom: 20px;
 
