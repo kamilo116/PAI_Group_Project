@@ -80,6 +80,7 @@ class LoginMaterialize extends Component {
             } else {
                 return (
                     <ul>
+                        <li><Link to={"/userOrders"}>Orders</Link></li>
                         <li>
                             <h6>{this.props.user[0].name} {this.props.user[0].surname} </h6>
                             <h6>{this.props.user[0].email}</h6>

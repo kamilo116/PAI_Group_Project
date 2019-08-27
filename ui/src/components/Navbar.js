@@ -7,7 +7,6 @@ import {addToCart, setIsAdmin} from "./actions/cartActions";
 
 class Navbar extends Component {
 
-
     constructor(props) {
         super(props)
         this.state = {
