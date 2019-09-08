@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {addToCart, setIsLogin} from './actions/cartActions'
-import {getProduct, getReviews, getProductData} from "../utils/get-api";
-import {addToBasket} from "../utils/post-api";
+import { getReviews, getProductData} from "../utils/get-api";
+// import {addToBasket} from "../utils/post-api";
 
 import t_shirt_pol from "../images/pol.jpg";
 import t_shirt_arg from "../images/arg.jpg";
@@ -69,7 +69,7 @@ class Product extends Component{
 
     handleClick = (product, id)=>{
         this.props.addToCart(product);
-        addToBasket(id)
+        // addToBasket(id)
     }
 
     renderOption = (json) => {

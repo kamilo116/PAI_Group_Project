@@ -2,7 +2,7 @@ package controllers
 
 import com.mohiva.play.silhouette.api.Silhouette
 import javax.inject._
-import models.{ Order, OrderDetail, OrderDetailRepository, OrderRepository, ProductRepository, UserRepository }
+import models.{ Purchase, PurchaseDetail, PurchaseDetailRepository, PurchaseRepository, ProductRepository, UserRepository }
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
@@ -15,7 +15,7 @@ import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
 
 @Singleton
-class OrdersDetailController @Inject() (orderDetailRepo: OrderDetailRepository, orderRepo: OrderRepository, productRepo: ProductRepository,
+class PurchasesDetailController @Inject() (orderDetailRepo: PurchaseDetailRepository, orderRepo: PurchaseRepository, productRepo: ProductRepository,
   cc: MessagesControllerComponents, silhouette: Silhouette[DefaultEnv])(implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   val logger: Logger = Logger(this.getClass())
@@ -44,7 +44,7 @@ class OrdersDetailController @Inject() (orderDetailRepo: OrderDetailRepository, 
         "Access-Control-Allow-Origin" -> "*")
     })*/
     Await.result(orderDetail, Duration.Inf)
-    var createdOrderDetail: OrderDetail = orderDetail.value.get.get
+    var createdOrderDetail: PurchaseDetail = orderDetail.value.get.get
 
     Ok(Json.toJson(createdOrderDetail)).withHeaders(
       "Access-Control-Allow-Origin" -> "*")

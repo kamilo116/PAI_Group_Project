@@ -25,14 +25,14 @@ POST          /api/addCategory                                   controllers.Cat
 PUT           /api/updateCategory/:id                            controllers.CategoryController.updateCategory(id: Int)
 DELETE        /api/deleteCategory/:id                            controllers.CategoryController.deleteCategory(id: Int)
 
-GET           /api/orders                                        controllers.OrdersController.get
-GET           /api/ordersByUserId/:id                            controllers.OrdersController.getByUserId(id: Long)
-POST          /api/addOrder                                      controllers.OrdersController.add
+GET           /api/orders                                        controllers.PurchasesController.get
+GET           /api/ordersByUserId/:id                            controllers.PurchasesController.getByUserId(id: Long)
+POST          /api/addOrder                                      controllers.PurchasesController.add
 
-POST          /api/addOrderDetail                                controllers.OrdersDetailController.add
-GET           /api/orderDetailsByOrderId/:id                     controllers.OrdersDetailController.getByOrderId(id: Long)
-DELETE        /api/deleteOrderDetail/:id                         controllers.OrdersDetailController.deleteOrderDetail(id: Long)
-DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.OrdersDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
+POST          /api/addOrderDetail                                controllers.PurchasesDetailController.add
+GET           /api/orderDetailsByOrderId/:id                     controllers.PurchasesDetailController.getByOrderId(id: Long)
+DELETE        /api/deleteOrderDetail/:id                         controllers.PurchasesDetailController.deleteOrderDetail(id: Long)
+DELETE        /api/deleteOrderDetailAndOrderByOrderId/:id        controllers.PurchasesDetailController.deleteOrderDetailAndOrderByOrderId(id: Long)
 
 GET           /api/getReviews/byProductId/:id                    controllers.ReviewController.getReviewByProductId(id: Int)
 POST          /api/Review                                        controllers.ReviewController.create
@@ -60,4 +60,3 @@ GET           /account/email/:email                              controllers.Act
 GET           /account/activate/:token                           controllers.ActivateAccountController.activate(token: java.util.UUID)
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                                      controllers.Assets.versioned(file)
-->            /webjars                                           webjars.Routes

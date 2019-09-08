@@ -8,7 +8,7 @@ import t_shirt_arg from '../images/arg.jpg'
 import t_shirt_bel from '../images/bel.jpg'
 import t_shirt_fr from '../images/fr.jpg'
 import default_t_shirt from "../images/default.png";
-import {addToBasket} from "../utils/post-api";
+// import {addToBasket} from "../utils/post-api";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import {Alert} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -82,7 +82,7 @@ class Home extends Component{
 
     handleClick = (product, id)=>{
         this.props.addToCart(product);
-        addToBasket(id)
+        // addToBasket(id)
     }
 
     handleClickNotLogin = (product, id)=>{

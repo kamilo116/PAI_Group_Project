@@ -40,7 +40,7 @@ class ProductRepository @Inject() (dbConfigProvider: DatabaseConfigProvider, cat
 
     def category = column[Int]("category")
 
-    private def category_fk = foreignKey("cat_fk", category, cat)(_.id)
+    //    private def category_fk = foreignKey("cat_fk", category, cat)(_.id)
     /**
      * This is the tables default "projection".
      *

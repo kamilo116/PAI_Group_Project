@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject._
-import models.{ OrderRepository, ReviewRepository }
+import models.{ PurchaseRepository, ReviewRepository }
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
@@ -11,9 +11,9 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 @Singleton
 class ReviewController @Inject() (
-  reviewRepo: ReviewRepository,
-  orderRepo: OrderRepository,
-  cc: MessagesControllerComponents)(implicit ec: ExecutionContext)
+                                   reviewRepo: ReviewRepository,
+                                   orderRepo: PurchaseRepository,
+                                   cc: MessagesControllerComponents)(implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   val reviewForm: Form[CreateReviewForm] = Form {
     mapping(

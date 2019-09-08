@@ -8,7 +8,7 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.{ ExecutionContext, Future }
 
 @Singleton
-class OrderRepository @Inject() (dbConfigProvider: DatabaseConfigProvider /*, userRepository: UserRepository*/ )(implicit ec: ExecutionContext) {
+class PurchaseRepository @Inject() (dbConfigProvider: DatabaseConfigProvider /*, userRepository: UserRepository*/ )(implicit ec: ExecutionContext) {
   // We want the JdbcProfile for this provider
   protected val dbConfig = dbConfigProvider.get[JdbcProfile]
 
@@ -20,57 +20,56 @@ class OrderRepository @Inject() (dbConfigProvider: DatabaseConfigProvider /*, us
   import profile.api._
   //  import userRepository.UsersTable
 
-  class OrderTable(tag: Tag) extends Table[Order](tag, "order") {
+  class OrderTable(tag: Tag) extends Table[Purchase](tag, "purchase") {
 
     /** The ID column, which is the primary key, and auto incremented */
-    def id = column[Long]("order_id", O.PrimaryKey, O.AutoInc)
+    def id = column[Long]("purchase_id", O.PrimaryKey, O.AutoInc)
 
     def user_id = column[Long]("user_id")
 
-    def order_address = column[String]("order_address")
+    def purchase_address = column[String]("delivery_address")
 
     def is_reviewed = column[Boolean]("is_reviewed")
 
     //    def user_fk = foreignKey("user_fk",user_id, user)(_.id)
 
-    def * = (id, user_id, order_address, is_reviewed) <> ((Order.apply _).tupled, Order.unapply)
+    def * = (id, user_id, purchase_address, is_reviewed) <> ((Purchase.apply _).tupled, Purchase.unapply)
   }
 
-  private val order = TableQuery[OrderTable]
+  private val purchase = TableQuery[OrderTable]
 
-  //  private val user = TableQuery[UsersTable]
-
-  def create(userId: Long, orderAddress: String, is_reviewed: Boolean): Future[Order] = db.run {
+  //`product_id` int NOT NULL, ???
+  def create(userId: Long, orderAddress: String, is_reviewed: Boolean): Future[Purchase] = db.run {
     // We create a projection of just the name and age columns, since we're not inserting a value for the id column
-    (order.map(p => (p.user_id, p.order_address, p.is_reviewed))
+    (purchase.map(p => (p.user_id, p.purchase_address, p.is_reviewed))
       // Now define it to return the id, because we want to know what id was generated for the person
-      returning order.map(_.id)
+      returning purchase.map(_.id)
       // And we define a transformation for the returned value, which combines our original parameters with the
       // returned id
-      into { case ((userId, orderAddress, is_reviewed), id) => Order(id, userId, orderAddress, is_reviewed) }
+      into { case ((userId, orderAddress, is_reviewed), id) => Purchase(id, userId, orderAddress, is_reviewed) }
     ) += ((userId, orderAddress, is_reviewed))
   }
 
-  def list(): Future[Seq[Order]] = db.run {
-    order.result
+  def list(): Future[Seq[Purchase]] = db.run {
+    purchase.result
   }
 
-  def getByUserId(user_id: Long): Future[Seq[Order]] = db.run {
-    order.filter(_.user_id === user_id).result
+  def getByUserId(user_id: Long): Future[Seq[Purchase]] = db.run {
+    purchase.filter(_.user_id === user_id).result
   }
 
-  def getById(order_id: Long): Future[Seq[Order]] = db.run {
-    order.filter(_.id === order_id).result
+  def getById(order_id: Long): Future[Seq[Purchase]] = db.run {
+    purchase.filter(_.id === order_id).result
   }
 
   def delete(id: Long): Future[Int] = {
-    val q = order.filter(_.id === id).delete
+    val q = purchase.filter(_.id === id).delete
     db.run(q)
   }
 
   def updateReviewValue(order_id: Long): Future[Int] = {
 
-    val q = order.filter(_.id === order_id)
+    val q = purchase.filter(_.id === order_id)
       .map(x => x.is_reviewed).update(true)
     db.run(q)
   }
